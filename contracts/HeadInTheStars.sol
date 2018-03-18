@@ -1,9 +1,9 @@
 pragma solidity ^0.4.17;
 
-import '../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol';
+import '../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol';
 import "./ERC721Token.sol";
 
-contract HeadInTheStars is Ownable, ERC721Token {
+contract HeadInTheStars is ERC721Token, Destructible {
   
   // Mapping from tokenId to TokenPrice
   mapping (uint256 => uint256) private tokenPrice;
