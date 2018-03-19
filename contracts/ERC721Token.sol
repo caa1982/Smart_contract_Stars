@@ -11,19 +11,19 @@ contract ERC721Token is ERC721 {
   using SafeMath for uint256;
 
   // Total amount of tokens
-  uint256 private totalTokens;
+  uint256 public totalTokens;
 
   // Mapping from token ID to owner
-  mapping (uint256 => address) private tokenOwner;
+  mapping (uint256 => address) public tokenOwner;
 
   // Mapping from token ID to approved address
-  mapping (uint256 => address) private tokenApprovals;
+  mapping (uint256 => address) public tokenApprovals;
 
   // Mapping from owner to list of owned token IDs
-  mapping (address => uint256[]) private ownedTokens;
+  mapping (address => uint256[]) public ownedTokens;
 
   // Mapping from token ID to index of the owner tokens list
-  mapping(uint256 => uint256) private ownedTokensIndex;
+  mapping(uint256 => uint256) public ownedTokensIndex;
 
   /**
   * @dev Guarantees msg.sender is owner of the given token
