@@ -9,7 +9,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
   mapping (uint256 => uint256) public tokenPrice;
 
   // Mapping from tokenId to Object Name / object HD eg. star HD888 or planet name mars
-  mapping (uint256 => string) private tokenName;
+  mapping (uint256 => string) public tokenName;
   
   uint public initStarsPrice;
   uint public initPlanetsPrice;
@@ -54,7 +54,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
     owner.transfer(msg.value);
   }
 
-  function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice, string[] _tokensName) payable public {
+  function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice, string[] _tokensName) payable external {
     require(_tokensId.length <= 5);
     require(_tokensId.length == _tokensType.length);
     require(_tokensId.length == _tokensPrice.length); 
@@ -142,5 +142,9 @@ contract HeadInTheStars is ERC721Token, Destructible {
     string memory name = tokenName[_tokenId];
     return name;
   }
+
+  // change tokenName
+  
+  //only owner can mint a completly new token
 
 }
