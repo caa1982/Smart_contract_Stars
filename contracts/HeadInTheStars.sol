@@ -6,7 +6,7 @@ import "./ERC721Token.sol";
 contract HeadInTheStars is Ownable, ERC721Token {
   
   // Mapping from tokenId to TokenPrice
-  mapping (uint256 => uint256) private tokenPrice;
+  mapping (uint256 => uint256) public tokenPrice;
 
   uint public initStarsPrice;
   uint public initPlanetsPrice;
@@ -21,10 +21,10 @@ contract HeadInTheStars is Ownable, ERC721Token {
     initSatellitesPrice = _initPrice[3];
     initExoplanetsPrice = _initPrice[4];
 
-    tokenPrice[_sun[1]] = _sun[2];
+    tokenPrice[_sun[0]] = _sun[1];
 
-    addToken(msg.sender, _sun[1]);
-    Transfer(0x0, msg.sender, _sun[1]);
+    addToken(msg.sender, _sun[0]);
+    Transfer(0x0, msg.sender, _sun[0]);
   }
 
   function () public payable {
@@ -49,17 +49,27 @@ contract HeadInTheStars is Ownable, ERC721Token {
     owner.transfer(msg.value);
   }
 
-  function ChangeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) public onlyOwnerOf(_tokenId) {
+  function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice) payable public {
+    require(_tokensId.length <= 5);
+    require(_tokensId.length == _tokensType.length);
+    require(_tokensId.length == _tokensPrice.length); 
+
+    for ( uint i = 0; i < _tokensId.length; i++ ) {
+      mint(_tokensId[i], _tokensType[i], _tokensPrice[i]);
+    }
+  }
+
+  function changeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) public onlyOwnerOf(_tokenId) {
       tokenPrice[_tokenId] = _tokenPrice;
   }
 
-  function ChangeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) public onlyOwner {
+  function changeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) public onlyOwner {
       tokenPrice[_tokenId] = _tokenPrice;
   }
   
-  function isTheInitialPriceCorrect(uint256 _tokenId, string _tokenType) internal returns (bool) {
+  function isTheInitialPriceCorrect(uint256 _tokenId, string _tokenType) internal view returns (bool) {
 
-    if(keccak256(_tokenType) == keccak256("star")) {
+    if (keccak256(_tokenType) == keccak256("star")) {
       require(_tokenId >= 1 && _tokenId <= 98826);
       return initStarsPrice == msg.value;
 
@@ -85,11 +95,11 @@ contract HeadInTheStars is Ownable, ERC721Token {
 
   }
   
-  function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) public payable{
+  function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) public payable {
     require(_tokensId.length <= 5);
     require(_tokensId.length == _newTokensPrice.length);
 
-    for (uint i=0; i<_tokensId.length; i++) {
+    for ( uint i = 0; i < _tokensId.length; i++ ) {
       buyToken(_tokensId[i], _newTokensPrice[i]);
     }
   }
@@ -113,7 +123,7 @@ contract HeadInTheStars is Ownable, ERC721Token {
     owner.transfer((msg.value).div(100));
   }
   
-  function isTheCorrectPrice(uint256 _tokenId) internal returns(bool) {
+  function isTheCorrectPrice(uint256 _tokenId) internal view returns(bool) {
     return tokenPrice[_tokenId] == msg.value;
   }
 
