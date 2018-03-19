@@ -8,20 +8,24 @@ contract HeadInTheStars is ERC721Token, Destructible {
   // Mapping from tokenId to TokenPrice
   mapping (uint256 => uint256) private tokenPrice;
 
+  // Mapping from tokenId to Object Name / object HD eg. star HD888 or planet name mars
+  mapping (uint256 => string) private tokenName;
+  
   uint public initStarsPrice;
   uint public initPlanetsPrice;
   uint public initDwarfPlanetsPrice;
   uint public initSatellitesPrice;
   uint public initExoplanetsPrice;
 
-  function HeadInTheStars(uint[] _sun, uint[] _initPrice) public {
+  function HeadInTheStars(uint[] _sun, string _tokenName, uint[] _initPrice) public {
     initStarsPrice = _initPrice[0];
     initPlanetsPrice = _initPrice[1];
     initDwarfPlanetsPrice = _initPrice[2];
     initSatellitesPrice = _initPrice[3];
     initExoplanetsPrice = _initPrice[4];
 
-    tokenPrice[_sun[1]] = _sun[2];
+    tokenPrice[_sun[0]] = _sun[1];
+    tokenName[_sun[0]] = _tokenName;
 
     addToken(msg.sender, _sun[1]);
     Transfer(0x0, msg.sender, _sun[1]);
@@ -37,7 +41,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
   * @param _tokenPrice uint256 Price of the token for future sale in WEI to be minted by the msg.sender
   * @param _tokenType string eg. star, planet etc.
   */
-  function mint(uint256 _tokenId, string _tokenType, uint256 _tokenPrice) payable public {
+  function mint(uint256 _tokenId, string _tokenType, uint256 _tokenPrice, string _tokenName) payable public {
     require(msg.value > 0);
     require(isTheInitialPriceCorrect(_tokenId,  _tokenType));
     require(msg.sender != address(0));
@@ -45,6 +49,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
     addToken(msg.sender, _tokenId);
     Transfer(0x0, msg.sender, _tokenId);
 
+    tokenName[_tokenId] = _tokenName;
     tokenPrice[_tokenId] = _tokenPrice;
     owner.transfer(msg.value);
   }
@@ -121,6 +126,11 @@ contract HeadInTheStars is ERC721Token, Destructible {
     uint price = tokenPrice[_tokenId];
     require(price > 0);
     return price;
+  }
+
+  function tokenNameOf(uint256 _tokenId) public view returns (string) {
+    string memory name = tokenName[_tokenId];
+    return name;
   }
 
 }
