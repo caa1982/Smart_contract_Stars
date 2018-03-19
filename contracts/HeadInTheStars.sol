@@ -25,10 +25,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
     initExoplanetsPrice = _initPrice[4];
 
     tokenPrice[_sun[0]] = _sun[1];
-<<<<<<< HEAD
     tokenName[_sun[0]] = _tokenName;
-=======
->>>>>>> caaef8a7269ce1efc5bae54d94290c3b448c27b5
 
     addToken(msg.sender, _sun[0]);
     Transfer(0x0, msg.sender, _sun[0]);
@@ -57,13 +54,13 @@ contract HeadInTheStars is ERC721Token, Destructible {
     owner.transfer(msg.value);
   }
 
-  function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice) payable public {
+  function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice, string[] _tokensName) payable public {
     require(_tokensId.length <= 5);
     require(_tokensId.length == _tokensType.length);
     require(_tokensId.length == _tokensPrice.length); 
 
     for ( uint i = 0; i < _tokensId.length; i++ ) {
-      mint(_tokensId[i], _tokensType[i], _tokensPrice[i]);
+      mint(_tokensId[i], _tokensType[i], _tokensPrice[i], _tokensName[i]);
     }
   }
 
