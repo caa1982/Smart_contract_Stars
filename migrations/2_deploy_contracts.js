@@ -15,11 +15,13 @@ module.exports = function(deployer, network, wallet) {
 
   const deployDetails = {
     sun: [1, 10000000000000000000000],
+    tokenName: "Sun",
     initPrice: [15000000000000000, 100000000000000000000, 10000000000000000000, 10000000000000000000, 2500000000000000000]
   };
 
   deployer.deploy(HeadInTheStars,
     deployDetails.sun,
+    deployDetails.tokenName,
     deployDetails.initPrice,
   )
   .catch(err=>console.log("Error: ", err))

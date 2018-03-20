@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.19;
 
 import "../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
 import "./ERC721Token.sol";
@@ -9,7 +9,7 @@ contract HeadInTheStars is ERC721Token, Destructible {
     mapping (uint256 => uint256) public tokenPrice;
 
     // Mapping from tokenId to Object Name / object HD eg. star HD888 or planet name mars
-    mapping (uint256 => string) public tokenName;
+    mapping (uint256 => bytes32) public tokenName;
     
     uint public initStarsPrice;
     uint public initPlanetsPrice;
@@ -17,22 +17,22 @@ contract HeadInTheStars is ERC721Token, Destructible {
     uint public initSatellitesPrice;
     uint public initExoplanetsPrice;
 
-    function HeadInTheStars(uint[] _sun, string _tokenName, uint[] _initPrice) public {
-      initStarsPrice = _initPrice[0];
-      initPlanetsPrice = _initPrice[1];
-      initDwarfPlanetsPrice = _initPrice[2];
-      initSatellitesPrice = _initPrice[3];
-      initExoplanetsPrice = _initPrice[4];
+    function HeadInTheStars(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
+        initStarsPrice = _initPrice[0];
+        initPlanetsPrice = _initPrice[1];
+        initDwarfPlanetsPrice = _initPrice[2];
+        initSatellitesPrice = _initPrice[3];
+        initExoplanetsPrice = _initPrice[4];
 
-      tokenPrice[_sun[0]] = _sun[1];
-      tokenName[_sun[0]] = _tokenName;
+        tokenPrice[_sun[0]] = _sun[1];
+        tokenName[_sun[0]] = _tokenName;
 
-      addToken(msg.sender, _sun[0]);
-      Transfer(0x0, msg.sender, _sun[0]);
+        addToken(msg.sender, _sun[0]);
+        Transfer(0x0, msg.sender, _sun[0]);
     }
 
     function () public payable {
-      revert();
+        revert();
     }
 
     /**
@@ -41,9 +41,10 @@ contract HeadInTheStars is ERC721Token, Destructible {
     * @param _tokenPrice uint256 Price of the token for future sale in WEI to be minted by the msg.sender
     * @param _tokenType string eg. star, planet etc.
     */
-    function mint(uint256 _tokenId, string _tokenType, uint256 _tokenPrice, string _tokenName) payable public {
+    function mint(uint _tokenId, bytes32 _tokenType, uint _tokenPrice, bytes32 _tokenName) payable public {
         require(msg.value > 0);
-        require(isTheInitialPriceCorrect(_tokenId,  _tokenType));
+        
+        require(isTheInitialPriceCorrect(_tokenId,  _tokenType)); 
         require(msg.sender != address(0));
 
         addToken(msg.sender, _tokenId);
@@ -51,14 +52,18 @@ contract HeadInTheStars is ERC721Token, Destructible {
 
         tokenName[_tokenId] = _tokenName;
         tokenPrice[_tokenId] = _tokenPrice;
-        owner.transfer(msg.value);
+        
+        if(this.balance != 0) {
+            owner.transfer(this.balance);
+        }
     }
 
-    function mintTokens(uint[] _tokensId, string[] _tokensType, uint[] _tokensPrice, string[] _tokensName) payable external {
+    function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
         require(_tokensId.length <= 5);
         require(_tokensId.length == _tokensType.length);
         require(_tokensId.length == _tokensPrice.length); 
-
+        require(_tokensId.length == _tokensName.length); 
+        
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             mint(_tokensId[i], _tokensType[i], _tokensPrice[i], _tokensName[i]);
         }
@@ -72,34 +77,35 @@ contract HeadInTheStars is ERC721Token, Destructible {
         tokenPrice[_tokenId] = _tokenPrice;
     }
     
-    function isTheInitialPriceCorrect(uint256 _tokenId, string _tokenType) internal view returns (bool) {
-
-        if (keccak256(_tokenType) == keccak256("star")) {
+    function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal view returns (bool) {
+        
+        if (_tokenType == stringToBytes32("star")) {
             require(_tokenId >= 1 && _tokenId <= 98826);
-            return initStarsPrice == msg.value;
+            return initStarsPrice <= msg.value;
 
-        } else if (keccak256(_tokenType) == keccak256("exoplanet")) {
+        } else if (_tokenType == stringToBytes32("exoplanet")) {
             require(_tokenId >= 98853 && _tokenId <= 102363);
-            return initExoplanetsPrice == msg.value;
+            return initExoplanetsPrice <= msg.value;
 
-        } else if (keccak256(_tokenType) == keccak256("satellite")) {
+        } else if (_tokenType == stringToBytes32("satellite")) {
             require(_tokenId >= 98846 && _tokenId <= 98852);
-            return initSatellitesPrice == msg.value;
+            return initSatellitesPrice <= msg.value;
 
-        } else if (keccak256(_tokenType) == keccak256("planet")) {
-            require(_tokenId >= 98827 && _tokenId <= 98845);
-            return initPlanetsPrice == msg.value;
+        } else if (_tokenType == stringToBytes32("planet")) {
+            require(_tokenId >= 98827 && _tokenId <= 98845); 
+            
+            return initPlanetsPrice <= msg.value;
 
-        } else if (keccak256(_tokenType) == keccak256("dwarfPlanet")) {
+        } else if (_tokenType == stringToBytes32("dwarfPlanet")) {
             require(_tokenId >= 102364 && _tokenId <= 102374);
-            return initDwarfPlanetsPrice == msg.value;
+            return initDwarfPlanetsPrice <= msg.value;
 
         }
 
         return false;
 
     }
-    
+
     function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) public payable {
         require(_tokensId.length <= 5);
         require(_tokensId.length == _newTokensPrice.length);
@@ -139,9 +145,28 @@ contract HeadInTheStars is ERC721Token, Destructible {
     }
 
     function tokenNameOf(uint256 _tokenId) public view returns (string) {
-        string memory name = tokenName[_tokenId];
-        return name;
+        bytes32 name = tokenName[_tokenId];
+        return bytes32ToStr(name);
     }
+
+    function stringToBytes32(string memory source) internal pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+            assembly {
+                result := mload(add(source, 32))
+            }
+    }
+
+    function bytes32ToStr(bytes32 _bytes32) internal pure returns (string){
+        bytes memory bytesArray = new bytes(32);
+        for (uint256 i; i < 32; i++) {
+            bytesArray[i] = _bytes32[i];
+            }
+        return string(bytesArray);
+    }
+
 
     // change tokenName
     

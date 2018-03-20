@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.18;
 
 import "../node_modules/zeppelin-solidity/contracts/token/ERC721/ERC721.sol";
 import "../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
