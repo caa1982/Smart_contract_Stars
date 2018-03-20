@@ -51,8 +51,8 @@ contract('HeadInTheStars', accounts => {
   // });
 
   it("Should be able to mint an array of token and return the correct Name", async () => {
-    await contract.mintTokens([1, 2, 3, 4, 5], ["star", "star", "star", "star", "star"], [2500000000000000000 ,2500000000000000000, 2500000000000000000, 2500000000000000000, 2500000000000000000], ["Mars", "Venus", "Venus", "Venus", "Venus"], {from: account1, value: deployDetails.initPrice[1]});
-    contract.tokenNameOf(98827).then(_name => {
+    await contract.mintTokens([6, 2, 3], ["star", "star", "star"], [2500000000000000000 ,2500000000000000000, 2500000000000000000], ["Mars", "Venus", "Venus"], {from: account1, value: deployDetails.initPrice[0]*4});
+    contract.tokenNameOf(6).then(_name => {
         assert.equal(_name, "Mars", "it should have created a planet token");
     })
   });

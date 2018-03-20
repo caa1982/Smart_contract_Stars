@@ -1,14 +1,15 @@
 pragma solidity ^0.4.19;
 
-import "../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
+import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./ERC721Token.sol";
+import "./ByteString.sol";
 
-contract HeadInTheStars is ERC721Token, Destructible {
+contract HeadInTheStars is ERC721Token, Ownable, ByteString {
   
     // Mapping from tokenId to TokenPrice
     mapping (uint256 => uint256) public tokenPrice;
 
-    // Mapping from tokenId to Object Name / object HD eg. star HD888 or planet name mars
+    // Mapping from tokenId to ObjectName / objectHD eg. star HD888 or planet mars
     mapping (uint256 => bytes32) public tokenName;
     
     uint public initStarsPrice;
@@ -16,6 +17,8 @@ contract HeadInTheStars is ERC721Token, Destructible {
     uint public initDwarfPlanetsPrice;
     uint public initSatellitesPrice;
     uint public initExoplanetsPrice;
+
+    uint private amount;
 
     function HeadInTheStars(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
         initStarsPrice = _initPrice[0];
@@ -35,70 +38,83 @@ contract HeadInTheStars is ERC721Token, Destructible {
         revert();
     }
 
-    /**
-    * @dev Mint token function
-    * @param _tokenId uint256 ID of the token to be minted by the msg.sender
-    * @param _tokenPrice uint256 Price of the token for future sale in WEI to be minted by the msg.sender
-    * @param _tokenType string eg. star, planet etc.
-    */
-    function mint(uint _tokenId, bytes32 _tokenType, uint _tokenPrice, bytes32 _tokenName) payable public {
-        require(msg.value > 0);
-        
-        require(isTheInitialPriceCorrect(_tokenId,  _tokenType)); 
-        require(msg.sender != address(0));
-
-        addToken(msg.sender, _tokenId);
-        Transfer(0x0, msg.sender, _tokenId);
-
-        tokenName[_tokenId] = _tokenName;
-        tokenPrice[_tokenId] = _tokenPrice;
-        
-        if(this.balance != 0) {
-            owner.transfer(this.balance);
-        }
-    }
-
     function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
+        require(msg.value > 0);
+        require(msg.sender != address(0));
+        require(_tokensId.length > 0);
         require(_tokensId.length <= 5);
         require(_tokensId.length == _tokensType.length);
         require(_tokensId.length == _tokensPrice.length); 
         require(_tokensId.length == _tokensName.length); 
         
+        amount = msg.value;
+
         for ( uint i = 0; i < _tokensId.length; i++ ) {
-            mint(_tokensId[i], _tokensType[i], _tokensPrice[i], _tokensName[i]);
+            require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
+
+            addToken(msg.sender, _tokensId[i]);
+            Transfer(0x0, msg.sender, _tokensId[i]);
+
+            tokenName[_tokensId[i]] = _tokensName[i];
+            tokenPrice[_tokensId[i]] = _tokensPrice[i];
         }
-    }
 
-    function changeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) public onlyOwnerOf(_tokenId) {
-        tokenPrice[_tokenId] = _tokenPrice;
-    }
-
-    function changeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) public onlyOwner {
-        tokenPrice[_tokenId] = _tokenPrice;
-    }
-    
-    function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal view returns (bool) {
+       require(amount == 0);
+       owner.transfer(this.balance);
         
+    }
+
+    function changeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) external onlyOwnerOf(_tokenId) {
+        tokenPrice[_tokenId] = _tokenPrice;
+    }
+
+    function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal returns (bool) {
+        bool isTrue;
+
         if (_tokenType == stringToBytes32("star")) {
             require(_tokenId >= 1 && _tokenId <= 98826);
-            return initStarsPrice <= msg.value;
+            
+            isTrue = initStarsPrice <= amount;
+
+            amount = amount.sub(initStarsPrice);
+
+            return isTrue;
 
         } else if (_tokenType == stringToBytes32("exoplanet")) {
             require(_tokenId >= 98853 && _tokenId <= 102363);
-            return initExoplanetsPrice <= msg.value;
+            
+            isTrue = initExoplanetsPrice <= amount;
+
+            amount = amount.sub(initExoplanetsPrice);
+
+            return isTrue;
 
         } else if (_tokenType == stringToBytes32("satellite")) {
             require(_tokenId >= 98846 && _tokenId <= 98852);
-            return initSatellitesPrice <= msg.value;
+
+            isTrue = initSatellitesPrice <= amount;
+
+            amount = amount.sub(initSatellitesPrice);
+            
+            return isTrue;
 
         } else if (_tokenType == stringToBytes32("planet")) {
             require(_tokenId >= 98827 && _tokenId <= 98845); 
             
-            return initPlanetsPrice <= msg.value;
+            isTrue = initPlanetsPrice <= amount;
+
+            amount = amount.sub(initPlanetsPrice);
+            
+            return isTrue;
 
         } else if (_tokenType == stringToBytes32("dwarfPlanet")) {
             require(_tokenId >= 102364 && _tokenId <= 102374);
-            return initDwarfPlanetsPrice <= msg.value;
+
+            isTrue = initDwarfPlanetsPrice <= amount;
+
+            amount = amount.sub(initDwarfPlanetsPrice);
+            
+            return isTrue;
 
         }
 
@@ -106,67 +122,55 @@ contract HeadInTheStars is ERC721Token, Destructible {
 
     }
 
-    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) public payable {
+    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) external payable {
+        require(msg.value > 0);
+        require(msg.sender != address(0));
         require(_tokensId.length <= 5);
         require(_tokensId.length == _newTokensPrice.length);
 
+        amount = msg.value;
+
         for ( uint i = 0; i < _tokensId.length; i++ ) {
-            buyToken(_tokensId[i], _newTokensPrice[i]);
+            require(isTheCorrectPrice(_tokenId[i]));
+
+            address exOwner = ownerOf(_tokenId[i]);
+
+            clearApproval(exOwner, _tokenId[i]);
+            removeToken(exOwner, _tokenId[i]);
+            addToken(msg.sender, _tokenId[i]);
+            Transfer(exOwner, msg.sender, _tokenId[i]);
         }
-    }
 
-    function buyToken(uint256 _tokenId, uint256 _newTokenPrice) public payable {
-        require(isTheCorrectPrice(_tokenId));
-
-        address exOwner = ownerOf(_tokenId);
-
-        clearApproval(exOwner, _tokenId);
-        removeToken(exOwner, _tokenId);
-        addToken(msg.sender, _tokenId);
-        Transfer(exOwner, msg.sender, _tokenId);
-
-        tokenPrice[_tokenId] = _newTokenPrice;
-
+        require(amount == 0);
+        
         //substract Trading fees is 1%
         exOwner.transfer(msg.value.sub((msg.value).div(100)));
 
         //send trading fee to contract Owner
         owner.transfer((msg.value).div(100));
+
     }
     
-    function isTheCorrectPrice(uint256 _tokenId) internal view returns(bool) {
-        return tokenPrice[_tokenId] == msg.value;
+    function isTheCorrectPrice(uint256 _tokenId) internal returns(bool) {
+        bool isTrue;
+
+        isTrue = tokenPrice[_tokenId] <= amount;
+
+        amount = amount.sub(tokenPrice[_tokenId])
+        
+        return isTrue;
     }
 
-    function tokenPriceOf(uint256 _tokenId) public view returns (uint) {
+    function tokenPriceOf(uint256 _tokenId) external view returns (uint) {
         uint price = tokenPrice[_tokenId];
         require(price > 0);
         return price;
     }
 
-    function tokenNameOf(uint256 _tokenId) public view returns (string) {
+    function tokenNameOf(uint256 _tokenId) external view returns (string) {
         bytes32 name = tokenName[_tokenId];
         return bytes32ToStr(name);
     }
-
-    function stringToBytes32(string memory source) internal pure returns (bytes32 result) {
-        bytes memory tempEmptyStringTest = bytes(source);
-        if (tempEmptyStringTest.length == 0) {
-            return 0x0;
-        }
-            assembly {
-                result := mload(add(source, 32))
-            }
-    }
-
-    function bytes32ToStr(bytes32 _bytes32) internal pure returns (string){
-        bytes memory bytesArray = new bytes(32);
-        for (uint256 i; i < 32; i++) {
-            bytesArray[i] = _bytes32[i];
-            }
-        return string(bytesArray);
-    }
-
 
     // change tokenName
     

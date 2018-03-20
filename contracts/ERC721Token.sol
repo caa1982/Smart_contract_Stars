@@ -113,17 +113,6 @@ contract ERC721Token is ERC721 {
   }
 
   /**
-  * @dev Mint token function
-  * @param _to The address that will own the minted token
-  * @param _tokenId uint256 ID of the token to be minted by the msg.sender
-  */
-  function _mint(address _to, uint256 _tokenId) internal {
-    require(_to != address(0));
-    addToken(_to, _tokenId);
-    Transfer(0x0, _to, _tokenId);
-  }
-
-  /**
    * @dev Tells whether the msg.sender is approved for the given token ID or not
    * This function is not private so it can be extended in further implementations like the operatable ERC721
    * @param _owner address of the owner to query the approval of
