@@ -4,6 +4,8 @@ import "./Mintable.sol";
 
 contract Buyable is Mintable {
 
+    event BuyTokens(address, address, uint);
+
     function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) external payable {
         require(msg.value > 0);
         require(msg.sender != address(0));
@@ -20,7 +22,7 @@ contract Buyable is Mintable {
             clearApproval(exOwner, _tokensId[i]);
             removeToken(exOwner, _tokensId[i]);
             addToken(msg.sender, _tokensId[i]);
-            Transfer(exOwner, msg.sender, _tokensId[i]);
+            BuyTokens(exOwner, msg.sender, _tokensId[i]);
         }
 
         require(amount == 0);

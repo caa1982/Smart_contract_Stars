@@ -30,6 +30,8 @@ contract Mintable is ERC721Token {
         revert();
     }
 
+    event MintTokens(address, uint);
+
     function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
@@ -45,7 +47,7 @@ contract Mintable is ERC721Token {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
 
             addToken(msg.sender, _tokensId[i]);
-            Transfer(0x0, msg.sender, _tokensId[i]);
+            MintTokens(msg.sender, _tokensId[i]);
 
             tokenStorage.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
             tokenStorage.changeTokenName(_tokensId[i], _tokensName[i]);
