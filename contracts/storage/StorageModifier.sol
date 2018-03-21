@@ -11,6 +11,15 @@ contract StorageModifier is StorageGetter {
         _;
     }
 
+    /**
+    * @dev Guarantees msg.sender is owner of the given token
+    * @param _tokenId uint256 ID of the token to validate its ownership belongs to msg.sender
+    */
+    modifier onlyOwnerOf(uint256 _tokenId) {
+        require(tokens[_tokenId].tokenOwner == msg.sender);
+        _;
+    }
+
     function allowAccess(address _address) platform external {
         accessAllowed[_address] = true;
     }
@@ -19,19 +28,19 @@ contract StorageModifier is StorageGetter {
         accessAllowed[_address] = false;
     }
 
-    function changeTokenOwner(uint _tokenId, uint _to) platform external {
+    function changeTokenOwner(uint _tokenId, uint _to) onlyOwnerOf(uint _tokenId) external {
         tokens[_tokenId].TokenOwner = _to;
     }
 
-    function changeTokenPrice(uint _tokenId, uint _tokenPrice) platform external {
+    function changeTokenPrice(uint _tokenId, uint _tokenPrice) onlyOwnerOf(uint _tokenId) external {
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
-    function changeTokenName(uint _tokenId, bytes32 _tokenName) platform external {
+    function changeTokenName(uint _tokenId, bytes32 _tokenName) onlyOwnerOf(uint _tokenId) external {
         tokens[_tokenId].tokenName = _tokenName;
     }
 
-    function changeTokenApproval(uint _tokenId, address _to) platform external {
+    function changeTokenApproval(uint _tokenId, address _to) onlyOwnerOf(uint _tokenId) external {
         tokens[_tokenId].tokenApproval = _to;
     }
 
@@ -39,7 +48,7 @@ contract StorageModifier is StorageGetter {
         ownedTokens[_to].push(_tokenId);
     }
 
-    function changeLastTokenOwned(uint _tokenId, address _from) platform external {
+    function changeLastTokenOwned(uint _tokenId, address _from)  onlyOwnerOf(uint _tokenId) external {
         require(tokens[_tokenId].tokenOwner == _from);
 
         uint tokenIndex = ownedTokensIndex[_tokenId];
@@ -51,7 +60,7 @@ contract StorageModifier is StorageGetter {
         ownedTokens[_from].length--;
     }
 
-    function changeLastOwnedTokensIndex(uint _tokenId, address _from) platform external {
+    function changeLastOwnedTokensIndex(uint _tokenId, address _from)  onlyOwnerOf(uint _tokenId) external {
         require(tokens[_tokenId].tokenOwner == _from);
 
         uint tokenIndex = ownedTokensIndex[_tokenId];
@@ -61,7 +70,7 @@ contract StorageModifier is StorageGetter {
         ownedTokensIndex[lastToken] = tokenIndex;
     }
     
-    function changeOwnedTokensIndex(uint _tokenId, uint _length) platform external {
+    function changeOwnedTokensIndex(uint _tokenId, uint _length) onlyOwnerOf(uint _tokenId) external {
         ownedTokensIndex[_tokenId] = _length;
     }
 
@@ -69,7 +78,7 @@ contract StorageModifier is StorageGetter {
         totalTokens = totalTokens.add(_amount);
     }
 
-    function subTotalTokens(uint _amount) platform external {
+    function subTotalTokens(uint _amount)  onlyOwnerOf(uint _tokenId) external {
         totalTokens = totalTokens.sub(_amount);
     }
 
