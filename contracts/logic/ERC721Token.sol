@@ -1,16 +1,22 @@
 pragma solidity ^0.4.18;
 
-import "../node_modules/zeppelin-solidity/contracts/token/ERC721/ERC721.sol";
-import "../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
-import "./Getter.sol";
+import "../../node_modules/zeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
+import ".././storage/Storage.sol";
 
 /**
  * @title ERC721Token
  * Generic implementation for the required functionality of the ERC721 standard
  */
-contract ERC721Token is ERC721, Getter {
+contract ERC721Token is ERC721 {
     using SafeMath for uint256;
 
+    Storage tokenStorage;
+
+    function ERC721Token(address _tokenStorageAddress) public {
+        tokenStorage = Storage(_tokenStorageAddress);
+    }
+    
     /**
     * @dev Guarantees msg.sender is owner of the given token
     * @param _tokenId uint256 ID of the token to validate its ownership belongs to msg.sender
@@ -37,10 +43,21 @@ contract ERC721Token is ERC721, Getter {
     function approve(address _to, uint256 _tokenId) public onlyOwnerOf(_tokenId) {
         address owner = ownerOf(_tokenId);
         require(_to != owner);
-        if (approvedFor(_tokenId) != 0 || _to != 0) {
-            tokenApprovals[_tokenId] = _to;
+        if (tokenStorage.approvedFor(_tokenId) != 0 || _to != 0) {
+            tokenStorage.changeTokenApproval(_tokenId, _to);
             Approval(owner, _to, _tokenId);
         }
+    }
+
+    /**
+    * @dev Tells whether the msg.sender is approved for the given token ID or not
+    * This function is not private so it can be extended in further implementations like the operatable ERC721
+    * @param _owner address of the owner to query the approval of
+    * @param _tokenId uint256 ID of the token to query the approval of
+    * @return bool whether the msg.sender is approved for the given token ID or not
+    */
+    function isApprovedFor(address _owner, uint256 _tokenId) internal view returns (bool) {
+        return tokenStorage.approvedFor(_tokenId) == _owner;
     }
 
     /**
@@ -49,7 +66,7 @@ contract ERC721Token is ERC721, Getter {
     */
     function takeOwnership(uint256 _tokenId) public {
         require(isApprovedFor(msg.sender, _tokenId));
-        clearApprovalAndTransfer(ownerOf(_tokenId), msg.sender, _tokenId);
+        clearApprovalAndTransfer(tokenStorage.ownerOf(_tokenId), msg.sender, _tokenId);
     }
 
     /**
@@ -75,7 +92,7 @@ contract ERC721Token is ERC721, Getter {
     */
     function clearApproval(address _owner, uint256 _tokenId) internal {
         require(ownerOf(_tokenId) == _owner);
-        tokenApprovals[_tokenId] = 0;
+        tokenStorage.changeTokenApproval(_tokenId, 0);
         Approval(_owner, 0, _tokenId);
     }
 
@@ -85,8 +102,8 @@ contract ERC721Token is ERC721, Getter {
     * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
     */
     function addToken(address _to, uint256 _tokenId) internal {
-        require(tokenOwner[_tokenId] == address(0));
-        tokenOwner[_tokenId] = _to;
+        require(tokens[_tokenId].tokenOwner == address(0));
+        tokens[_tokenId].tokenOwner = _to;
         uint256 length = balanceOf(_to);
         ownedTokens[_to].push(_tokenId);
         ownedTokensIndex[_tokenId] = length;
@@ -105,7 +122,7 @@ contract ERC721Token is ERC721, Getter {
         uint256 lastTokenIndex = balanceOf(_from).sub(1);
         uint256 lastToken = ownedTokens[_from][lastTokenIndex];
 
-        tokenOwner[_tokenId] = 0;
+        tokens[_tokenId].tokenOwner = 0;
         ownedTokens[_from][tokenIndex] = lastToken;
         ownedTokens[_from][lastTokenIndex] = 0;
         // Note that this will handle single-element arrays. In that case, both tokenIndex and lastTokenIndex are going to

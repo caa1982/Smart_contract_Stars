@@ -36,9 +36,9 @@ contract Buyable is Mintable {
     function isTheCorrectPrice(uint256 _tokenId) internal returns(bool) {
         bool isTrue;
 
-        isTrue = tokenPrice[_tokenId] <= amount;
+        isTrue = tokens[_tokenId].tokenPrice <= amount;
 
-        amount = amount.sub(tokenPrice[_tokenId]);
+        amount = amount.sub(tokens[_tokenId].tokenPrice);
         
         return isTrue;
     }

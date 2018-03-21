@@ -3,6 +3,14 @@ pragma solidity ^0.4.19;
 import "./ERC721Token.sol";
 
 contract Mintable is ERC721Token {
+    
+    uint public initStarsPrice;
+    uint public initPlanetsPrice;
+    uint public initDwarfPlanetsPrice;
+    uint public initSatellitesPrice;
+    uint public initExoplanetsPrice;
+
+    uint public amount;
 
     function Mintable(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
         initStarsPrice = _initPrice[0];
@@ -10,9 +18,9 @@ contract Mintable is ERC721Token {
         initDwarfPlanetsPrice = _initPrice[2];
         initSatellitesPrice = _initPrice[3];
         initExoplanetsPrice = _initPrice[4];
-
-        tokenPrice[_sun[0]] = _sun[1];
-        tokenName[_sun[0]] = _tokenName;
+        
+        tokenStorage.changeTokenPrice(_sun[0], _sun[1]);
+        tokenStorage.changeTokenName(_sun[0], _tokenName);
 
         addToken(msg.sender, _sun[0]);
         Transfer(0x0, msg.sender, _sun[0]);
@@ -39,23 +47,14 @@ contract Mintable is ERC721Token {
             addToken(msg.sender, _tokensId[i]);
             Transfer(0x0, msg.sender, _tokensId[i]);
 
-            tokenName[_tokensId[i]] = _tokensName[i];
-            tokenPrice[_tokensId[i]] = _tokensPrice[i];
+            tokenStorage.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
+            tokenStorage.changeTokenName(_tokensId[i], _tokensName[i]);
         }
 
         require(amount == 0);
         owner.transfer(this.balance);
         
     }
-
-    function changeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) external onlyOwnerOf(_tokenId) {
-        tokenPrice[_tokenId] = _tokenPrice;
-    }
-
-    function changeTokenName(uint256 _tokenId, bytes32 _tokenName) external onlyOwnerOf(_tokenId) {
-        tokenName[_tokenId] = _tokenName;
-    }
-
 
     function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal returns (bool) {
         bool isTrue;
@@ -110,7 +109,5 @@ contract Mintable is ERC721Token {
         return false;
 
     }
-    
-    //only owner can mint a completly new token
 
 }

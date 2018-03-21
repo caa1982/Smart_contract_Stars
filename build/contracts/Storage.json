@@ -1,0 +1,1128 @@
+{
+  "contractName": "Storage",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initDwarfPlanetsPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initPlanetsPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initExoplanetsPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownedTokensIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalTokens",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initStarsPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "initSatellitesPrice",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "amount",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        },
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownedTokens",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b61020f8061001e6000396000f3006060604052600436106100985763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663110c9612811461009d578063133b489c146100c2578063725c7404146100d557806374e24367146100e85780637e1c0c09146100fe5780638c9d329a14610111578063938a09c114610124578063aa8c217c14610137578063e149f0361461014a575b600080fd5b34156100a857600080fd5b6100b0610179565b60405190815260200160405180910390f35b34156100cd57600080fd5b6100b061017f565b34156100e057600080fd5b6100b0610185565b34156100f357600080fd5b6100b060043561018b565b341561010957600080fd5b6100b061019d565b341561011c57600080fd5b6100b06101a3565b341561012f57600080fd5b6100b06101a9565b341561014257600080fd5b6100b06101af565b341561015557600080fd5b6100b073ffffffffffffffffffffffffffffffffffffffff600435166024356101b5565b60065481565b60055481565b60085481565b60036020526000908152604090205481565b60005481565b60045481565b60075481565b60095481565b6002602052816000526040600020818154811015156101d057fe5b60009182526020909120015491508290505600a165627a7a723058204e02cc4677751876770982b917179a08e1d39076dc2e6f7ea9285c5a8f5927980029",
+  "deployedBytecode": "0x6060604052600436106100985763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663110c9612811461009d578063133b489c146100c2578063725c7404146100d557806374e24367146100e85780637e1c0c09146100fe5780638c9d329a14610111578063938a09c114610124578063aa8c217c14610137578063e149f0361461014a575b600080fd5b34156100a857600080fd5b6100b0610179565b60405190815260200160405180910390f35b34156100cd57600080fd5b6100b061017f565b34156100e057600080fd5b6100b0610185565b34156100f357600080fd5b6100b060043561018b565b341561010957600080fd5b6100b061019d565b341561011c57600080fd5b6100b06101a3565b341561012f57600080fd5b6100b06101a9565b341561014257600080fd5b6100b06101af565b341561015557600080fd5b6100b073ffffffffffffffffffffffffffffffffffffffff600435166024356101b5565b60065481565b60055481565b60085481565b60036020526000908152604090205481565b60005481565b60045481565b60075481565b60095481565b6002602052816000526040600020818154811015156101d057fe5b60009182526020909120015491508290505600a165627a7a723058204e02cc4677751876770982b917179a08e1d39076dc2e6f7ea9285c5a8f5927980029",
+  "sourceMap": "26:727:6:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "26:727:6:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;618:33;;;;;;;;;;;;;;;;;;;;;;;;;;;584:28;;;;;;;;;;;;694:31;;;;;;;;;;;;500:45;;;;;;;;;;;;;;80:23;;;;;;;;;;;;552:26;;;;;;;;;;;;657:31;;;;;;;;;;;;732:18;;;;;;;;;;;;384:46;;;;;;;;;;;;;;;;;;618:33;;;;:::o;584:28::-;;;;:::o;694:31::-;;;;:::o;500:45::-;;;;;;;;;;;;;:::o;80:23::-;;;;:::o;552:26::-;;;;:::o;657:31::-;;;;:::o;732:18::-;;;;:::o;384:46::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;384:46:6;;-1:-1:-1;384:46:6:o",
+  "source": "pragma solidity ^0.4.19;\n\ncontract Storage {\n\n    // Total amount of tokens\n    uint public totalTokens;\n    \n    struct Token {\n        address tokenOwner;\n        uint tokenPrice;\n        bytes32 tokenName;\n        address tokenApproval;\n    }\n    //mapping from tokenID to token details\n    mapping (uint => Token) tokens;\n\n    // Mapping from owner to list of owned token IDs\n    mapping (address => uint[]) public ownedTokens;\n\n    // Mapping from token ID to index of the owner tokens list\n    mapping(uint => uint) public ownedTokensIndex;\n\n    uint public initStarsPrice;\n    uint public initPlanetsPrice;\n    uint public initDwarfPlanetsPrice;\n    uint public initSatellitesPrice;\n    uint public initExoplanetsPrice;\n\n    uint public amount;\n}",
+  "sourcePath": "/home/cyril/Documents/Personal_Projects/Smart_contract_Stars/contracts/Storage.sol",
+  "ast": {
+    "absolutePath": "/home/cyril/Documents/Personal_Projects/Smart_contract_Stars/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        1304
+      ]
+    },
+    "id": 1305,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1267,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:6"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1304,
+        "linearizedBaseContracts": [
+          1304
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1269,
+            "name": "totalTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "80:23:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1268,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "80:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Storage.Token",
+            "id": 1278,
+            "members": [
+              {
+                "constant": false,
+                "id": 1271,
+                "name": "tokenOwner",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "137:18:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1270,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "137:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1273,
+                "name": "tokenPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "165:15:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 1272,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "165:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1275,
+                "name": "tokenName",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "190:17:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 1274,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "190:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1277,
+                "name": "tokenApproval",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "217:21:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1276,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "217:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Token",
+            "nodeType": "StructDefinition",
+            "scope": 1304,
+            "src": "114:131:6",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1282,
+            "name": "tokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "294:30:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Token_$1278_storage_$",
+              "typeString": "mapping(uint256 => struct Storage.Token storage ref)"
+            },
+            "typeName": {
+              "id": 1281,
+              "keyType": {
+                "id": 1279,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "303:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "294:23:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Token_$1278_storage_$",
+                "typeString": "mapping(uint256 => struct Storage.Token storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 1280,
+                "name": "Token",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 1278,
+                "src": "311:5:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Token_$1278_storage_ptr",
+                  "typeString": "struct Storage.Token storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1287,
+            "name": "ownedTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "384:46:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+              "typeString": "mapping(address => uint256[] storage ref)"
+            },
+            "typeName": {
+              "id": 1286,
+              "keyType": {
+                "id": 1283,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "393:7:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "384:27:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                "typeString": "mapping(address => uint256[] storage ref)"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1284,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "404:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "id": 1285,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "404:6:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[] storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1291,
+            "name": "ownedTokensIndex",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "500:45:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+              "typeString": "mapping(uint256 => uint256)"
+            },
+            "typeName": {
+              "id": 1290,
+              "keyType": {
+                "id": 1288,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "508:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "500:21:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                "typeString": "mapping(uint256 => uint256)"
+              },
+              "valueType": {
+                "id": 1289,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "516:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1293,
+            "name": "initStarsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "552:26:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1292,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "552:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1295,
+            "name": "initPlanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "584:28:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1294,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "584:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1297,
+            "name": "initDwarfPlanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "618:33:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1296,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "618:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1299,
+            "name": "initSatellitesPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "657:31:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1298,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "657:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1301,
+            "name": "initExoplanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "694:31:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1300,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "694:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1303,
+            "name": "amount",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "732:18:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1302,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "732:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1305,
+        "src": "26:727:6"
+      }
+    ],
+    "src": "0:753:6"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/cyril/Documents/Personal_Projects/Smart_contract_Stars/contracts/Storage.sol",
+    "exportedSymbols": {
+      "Storage": [
+        1304
+      ]
+    },
+    "id": 1305,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1267,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:6"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1304,
+        "linearizedBaseContracts": [
+          1304
+        ],
+        "name": "Storage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1269,
+            "name": "totalTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "80:23:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1268,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "80:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Storage.Token",
+            "id": 1278,
+            "members": [
+              {
+                "constant": false,
+                "id": 1271,
+                "name": "tokenOwner",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "137:18:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1270,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "137:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1273,
+                "name": "tokenPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "165:15:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 1272,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "165:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1275,
+                "name": "tokenName",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "190:17:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 1274,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "190:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 1277,
+                "name": "tokenApproval",
+                "nodeType": "VariableDeclaration",
+                "scope": 1278,
+                "src": "217:21:6",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 1276,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "217:7:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Token",
+            "nodeType": "StructDefinition",
+            "scope": 1304,
+            "src": "114:131:6",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1282,
+            "name": "tokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "294:30:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Token_$1278_storage_$",
+              "typeString": "mapping(uint256 => struct Storage.Token storage ref)"
+            },
+            "typeName": {
+              "id": 1281,
+              "keyType": {
+                "id": 1279,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "303:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "294:23:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Token_$1278_storage_$",
+                "typeString": "mapping(uint256 => struct Storage.Token storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 1280,
+                "name": "Token",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 1278,
+                "src": "311:5:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_Token_$1278_storage_ptr",
+                  "typeString": "struct Storage.Token storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 1287,
+            "name": "ownedTokens",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "384:46:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+              "typeString": "mapping(address => uint256[] storage ref)"
+            },
+            "typeName": {
+              "id": 1286,
+              "keyType": {
+                "id": 1283,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "393:7:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "384:27:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                "typeString": "mapping(address => uint256[] storage ref)"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 1284,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "404:4:6",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "id": 1285,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "404:6:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[] storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1291,
+            "name": "ownedTokensIndex",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "500:45:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+              "typeString": "mapping(uint256 => uint256)"
+            },
+            "typeName": {
+              "id": 1290,
+              "keyType": {
+                "id": 1288,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "508:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "500:21:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                "typeString": "mapping(uint256 => uint256)"
+              },
+              "valueType": {
+                "id": 1289,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "516:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1293,
+            "name": "initStarsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "552:26:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1292,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "552:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1295,
+            "name": "initPlanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "584:28:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1294,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "584:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1297,
+            "name": "initDwarfPlanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "618:33:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1296,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "618:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1299,
+            "name": "initSatellitesPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "657:31:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1298,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "657:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1301,
+            "name": "initExoplanetsPrice",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "694:31:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1300,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "694:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1303,
+            "name": "amount",
+            "nodeType": "VariableDeclaration",
+            "scope": 1304,
+            "src": "732:18:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1302,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "732:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1305,
+        "src": "26:727:6"
+      }
+    ],
+    "src": "0:753:6"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-03-21T15:15:10.700Z"
+}
