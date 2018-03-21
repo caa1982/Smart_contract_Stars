@@ -102,12 +102,11 @@ contract ERC721Token is ERC721 {
     * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
     */
     function addToken(address _to, uint256 _tokenId) internal {
-        require(tokens[_tokenId].tokenOwner == address(0));
-        tokens[_tokenId].tokenOwner = _to;
-        uint256 length = balanceOf(_to);
-        ownedTokens[_to].push(_tokenId);
-        ownedTokensIndex[_tokenId] = length;
-        totalTokens = totalTokens.add(1);
+        tokenStorage.changeTokenOwner(_tokenId, _to);
+        uint256 length = tokenStorage.balanceOf(_to);
+        tokenStorage.pushOwnedTokens(_tokenId, _to);
+        tokenStorage.changeOwnedTokensIndex(_tokenId, length);
+        tokenStorage.addTotalTokens(1);
     }
 
     /**
@@ -116,22 +115,10 @@ contract ERC721Token is ERC721 {
     * @param _tokenId uint256 ID of the token to be removed from the tokens list of the given address
     */
     function removeToken(address _from, uint256 _tokenId) internal {
-        require(ownerOf(_tokenId) == _from);
+        tokenStorage.changeTokenOwner(_tokenId, 0);
+        tokenStorage.changeLastTokenOwned(_from, _tokenId);
 
-        uint256 tokenIndex = ownedTokensIndex[_tokenId];
-        uint256 lastTokenIndex = balanceOf(_from).sub(1);
-        uint256 lastToken = ownedTokens[_from][lastTokenIndex];
-
-        tokens[_tokenId].tokenOwner = 0;
-        ownedTokens[_from][tokenIndex] = lastToken;
-        ownedTokens[_from][lastTokenIndex] = 0;
-        // Note that this will handle single-element arrays. In that case, both tokenIndex and lastTokenIndex are going to
-        // be zero. Then we can make sure that we will remove _tokenId from the ownedTokens list since we are first swapping
-        // the lastToken to the first position, and then dropping the element placed in the last position of the list
-
-        ownedTokens[_from].length--;
-        ownedTokensIndex[_tokenId] = 0;
-        ownedTokensIndex[lastToken] = tokenIndex;
-        totalTokens = totalTokens.sub(1);
+        tokenStorage.changeLastOwnedTokensIndex(_from, _tokenId);
+        tokenStorage.subTotalTokens(1);
     }
 }

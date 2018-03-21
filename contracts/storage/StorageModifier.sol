@@ -4,8 +4,8 @@ import "./StorageGetter.sol";
 import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract StorageModifier is StorageGetter {
-    using SafeMath for uint256;
-
+    using SafeMath for uint;
+    
     modifier platform() {
         require(accessAllowed[msg.sender] == true);
         _;
@@ -19,28 +19,58 @@ contract StorageModifier is StorageGetter {
         accessAllowed[_address] = false;
     }
 
-    function changeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) external platform {
+    function changeTokenOwner(uint _tokenId, uint _to) platform external {
+        tokens[_tokenId].TokenOwner = _to;
+    }
+
+    function changeTokenPrice(uint _tokenId, uint _tokenPrice) platform external {
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
-    function changeTokenName(uint256 _tokenId, bytes32 _tokenName) external platform {
+    function changeTokenName(uint _tokenId, bytes32 _tokenName) platform external {
         tokens[_tokenId].tokenName = _tokenName;
     }
 
-    function changeTokenApproval(uint256 _tokenId, address _to) external platform {
+    function changeTokenApproval(uint _tokenId, address _to) platform external {
         tokens[_tokenId].tokenApproval = _to;
     }
 
-    function changeOwnedTokens(uint256 _tokenId, address _to) external platform {
+    function pushOwnedTokens(uint _tokenId, address _to) platform external {
         ownedTokens[_to].push(_tokenId);
     }
 
-    function ChangeOwnedTokensIndex(uint256 _tokenId, uint256 _length) external platform {
+    function changeLastTokenOwned(uint _tokenId, address _from) platform external {
+        require(tokens[_tokenId].tokenOwner == _from);
+
+        uint tokenIndex = ownedTokensIndex[_tokenId];
+        uint lastTokenIndex = lastTokenIndex = balanceOf(_from).sub(1);
+        uint lastToken = ownedTokens[_from][lastTokenIndex];
+        
+        ownedTokens[_from][tokenIndex] = lastToken;
+        ownedTokens[_from][lastTokenIndex] = 0;
+        ownedTokens[_from].length--;
+    }
+
+    function changeLastOwnedTokensIndex(uint _tokenId, address _from) platform external {
+        require(tokens[_tokenId].tokenOwner == _from);
+
+        uint tokenIndex = ownedTokensIndex[_tokenId];
+        uint lastToken = ownedTokens[_from][lastTokenIndex];
+
+        ownedTokensIndex[_tokenId] = 0;
+        ownedTokensIndex[lastToken] = tokenIndex;
+    }
+    
+    function changeOwnedTokensIndex(uint _tokenId, uint _length) platform external {
         ownedTokensIndex[_tokenId] = _length;
     }
 
-    function ChangeTotalTokens() external platform {
-        totalTokens = totalTokens.add(1);
+    function addTotalTokens(uint _amount) platform external {
+        totalTokens = totalTokens.add(_amount);
+    }
+
+    function subTotalTokens(uint _amount) platform external {
+        totalTokens = totalTokens.sub(_amount);
     }
 
 }

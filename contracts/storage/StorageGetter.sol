@@ -51,10 +51,16 @@ contract StorageGetter is Storage {
         return tokens[_tokenId].tokenApproval;
     }
 
+    function ownedTokensIndex(uint _tokenId) external view returns (uint) {
+        return ownedTokensIndex[_tokenId];
+    }
+    
+    function ownedTokens(_from, lastTokenIndex) external view returns (uint) {
+        return ownedTokens[_from][lastTokenIndex];
+    }
+    
     function tokenPriceOf(uint256 _tokenId) external view returns (uint) {
-        uint price = tokens[_tokenId].tokenPrice;
-        require(price > 0);
-        return price;
+        return tokens[_tokenId].tokenPrice;
     }
 
     function tokenNameOf(uint256 _tokenId) external view returns (string) {
