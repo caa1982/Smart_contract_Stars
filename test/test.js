@@ -1,6 +1,6 @@
-const HeadInTheStars = artifacts.require("./HeadInTheStars.sol");
+const Mintable = artifacts.require("./Mintable.sol");
 
-contract('HeadInTheStars', accounts => {
+contract('Mintable', accounts => {
 
   const owner = accounts[0];
   const account1 = accounts[1];
@@ -14,7 +14,7 @@ contract('HeadInTheStars', accounts => {
   };
 
   beforeEach(() =>
-    HeadInTheStars.new(deployDetails.sun, deployDetails.tokenName, deployDetails.initPrice,{ from: owner })
+    Mintable.new(deployDetails.sun, deployDetails.tokenName, deployDetails.initPrice,{ from: owner })
       .then(instance => contract = instance)
   );
 
@@ -51,7 +51,7 @@ contract('HeadInTheStars', accounts => {
   // });
 
   it("Should be able to mint an array of token and return the correct Name", async () => {
-    await contract.mintTokens([6, 2, 3], ["star", "star", "star"], [2500000000000000000 ,2500000000000000000, 2500000000000000000], ["Mars", "Venus", "Venus"], {from: account1, value: deployDetails.initPrice[0]*4});
+    await contract.mintTokens([6, 2, 3], ["star", "star", "star"], [2500000000000000000 ,2500000000000000000, 2500000000000000000], ["Mars", "Venus", "Venus"], {from: account1, value: deployDetails.initPrice[0]*3});
     contract.tokenNameOf(6).then(_name => {
         assert.equal(_name, "Mars", "it should have created a planet token");
     })

@@ -1,26 +1,10 @@
 pragma solidity ^0.4.19;
 
-import "../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
 import "./ERC721Token.sol";
-import "./ByteString.sol";
 
-contract HeadInTheStars is ERC721Token, Ownable, ByteString {
-  
-    // Mapping from tokenId to TokenPrice
-    mapping (uint256 => uint256) public tokenPrice;
+contract Mintable is ERC721Token {
 
-    // Mapping from tokenId to ObjectName / objectHD eg. star HD888 or planet mars
-    mapping (uint256 => bytes32) public tokenName;
-    
-    uint public initStarsPrice;
-    uint public initPlanetsPrice;
-    uint public initDwarfPlanetsPrice;
-    uint public initSatellitesPrice;
-    uint public initExoplanetsPrice;
-
-    uint private amount;
-
-    function HeadInTheStars(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
+    function Mintable(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
         initStarsPrice = _initPrice[0];
         initPlanetsPrice = _initPrice[1];
         initDwarfPlanetsPrice = _initPrice[2];
@@ -59,14 +43,19 @@ contract HeadInTheStars is ERC721Token, Ownable, ByteString {
             tokenPrice[_tokensId[i]] = _tokensPrice[i];
         }
 
-       require(amount == 0);
-       owner.transfer(this.balance);
+        require(amount == 0);
+        owner.transfer(this.balance);
         
     }
 
     function changeTokenPriceByOwner(uint256 _tokenId, uint256 _tokenPrice) external onlyOwnerOf(_tokenId) {
         tokenPrice[_tokenId] = _tokenPrice;
     }
+
+    function changeTokenName(uint256 _tokenId, bytes32 _tokenName) external onlyOwnerOf(_tokenId) {
+        tokenName[_tokenId] = _tokenName;
+    }
+
 
     function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal returns (bool) {
         bool isTrue;
@@ -121,58 +110,6 @@ contract HeadInTheStars is ERC721Token, Ownable, ByteString {
         return false;
 
     }
-
-    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) external payable {
-        require(msg.value > 0);
-        require(msg.sender != address(0));
-        require(_tokensId.length <= 5);
-        require(_tokensId.length == _newTokensPrice.length);
-
-        amount = msg.value;
-
-        for ( uint i = 0; i < _tokensId.length; i++ ) {
-            require(isTheCorrectPrice(_tokenId[i]));
-
-            address exOwner = ownerOf(_tokenId[i]);
-
-            clearApproval(exOwner, _tokenId[i]);
-            removeToken(exOwner, _tokenId[i]);
-            addToken(msg.sender, _tokenId[i]);
-            Transfer(exOwner, msg.sender, _tokenId[i]);
-        }
-
-        require(amount == 0);
-        
-        //substract Trading fees is 1%
-        exOwner.transfer(msg.value.sub((msg.value).div(100)));
-
-        //send trading fee to contract Owner
-        owner.transfer((msg.value).div(100));
-
-    }
-    
-    function isTheCorrectPrice(uint256 _tokenId) internal returns(bool) {
-        bool isTrue;
-
-        isTrue = tokenPrice[_tokenId] <= amount;
-
-        amount = amount.sub(tokenPrice[_tokenId])
-        
-        return isTrue;
-    }
-
-    function tokenPriceOf(uint256 _tokenId) external view returns (uint) {
-        uint price = tokenPrice[_tokenId];
-        require(price > 0);
-        return price;
-    }
-
-    function tokenNameOf(uint256 _tokenId) external view returns (string) {
-        bytes32 name = tokenName[_tokenId];
-        return bytes32ToStr(name);
-    }
-
-    // change tokenName
     
     //only owner can mint a completly new token
 
