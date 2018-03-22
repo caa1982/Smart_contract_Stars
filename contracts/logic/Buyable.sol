@@ -10,7 +10,7 @@ contract Buyable is Destructible {
 
     ERC721Token tokenERC721;
     
-    event BuyTokens(address exOwner, address newOwner, uint id);
+    event BuyTokens(address exOwner, address newOwner, uint id, uint Price);
 
     function () public payable {
         revert();
@@ -43,7 +43,7 @@ contract Buyable is Destructible {
             
             tokenERC721.clearApprovalAndTransfer(exOwner, msg.sender, _tokensId[i]);
 
-            BuyTokens(exOwner, msg.sender, _tokensId[i]);
+            BuyTokens(exOwner, msg.sender, _tokensId[i], tokenPrice);
         }
 
         require(amount == 0);
