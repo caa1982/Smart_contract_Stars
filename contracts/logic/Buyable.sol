@@ -1,12 +1,20 @@
 pragma solidity ^0.4.19;
 
-import "./Mintable.sol";
+import "../ERC721/ERC721Token.sol";
+import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
+import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
 
-contract Buyable is Mintable {
 
-    event BuyTokens(address, address, uint);
+contract Buyable is Destructible {
+    using SafeMath for uint256;
 
-    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) external payable {
+    ERC721Token tokenERC721;
+
+    uint public amount;
+    
+    event BuyTokens(address exOwner, address newOwner, uint id);
+
+    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
         require(_tokensId.length <= 5);

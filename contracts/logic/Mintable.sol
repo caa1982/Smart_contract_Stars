@@ -1,21 +1,14 @@
 pragma solidity ^0.4.19;
 
-import "../ERC721/ERC721Token.sol";
-import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
-import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
+import "./Buyable.sol";
 
-contract Mintable is Destructible {
-    using SafeMath for uint256;
+contract Mintable is Buyable {
     
     uint public initStarsPrice;
     uint public initPlanetsPrice;
     uint public initDwarfPlanetsPrice;
     uint public initSatellitesPrice;
     uint public initExoplanetsPrice;
-
-    uint public amount;
-
-    ERC721Token tokenERC721;
 
     event MintTokens(address from, uint id);
     
