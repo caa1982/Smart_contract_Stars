@@ -1,10 +1,8 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.18;
 
 import "./StorageGetter.sol";
-import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract StorageModifier is StorageGetter {
-    using SafeMath for uint;
     
     modifier platform() {
         require(accessAllowed[msg.sender] == true);
@@ -18,7 +16,7 @@ contract StorageModifier is StorageGetter {
     function denyAccess(address _address) platform external {
         accessAllowed[_address] = false;
     }
-
+    
     function changeTokenOwner(uint _tokenId, address _to) platform external {
         tokens[_tokenId].tokenOwner = _to;
     }

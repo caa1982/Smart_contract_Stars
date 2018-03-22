@@ -5,7 +5,7 @@ import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
 import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
 
 contract Mintable is Destructible {
-    using SafeMath for uint;
+    using SafeMath for uint256;
     
     uint public initStarsPrice;
     uint public initPlanetsPrice;
@@ -17,9 +17,9 @@ contract Mintable is Destructible {
 
     ERC721Token tokenERC721;
 
-    event MintTokens(address, uint);
-
-    function Mintable(uint[] _sun, bytes32 _tokenName, uint[] _initPrice, address _tokenERC721Address) public {
+    event MintTokens(address from, uint id);
+    
+    function Mintable(uint[] _initPrice, address _tokenERC721Address) public {
         initStarsPrice = _initPrice[0];
         initPlanetsPrice = _initPrice[1];
         initDwarfPlanetsPrice = _initPrice[2];
@@ -27,12 +27,6 @@ contract Mintable is Destructible {
         initExoplanetsPrice = _initPrice[4];
         
         tokenERC721 = ERC721Token(_tokenERC721Address);
-
-        tokenERC721.changeTokenPrice(_sun[0], _sun[1]);
-        tokenERC721.changeTokenName(_sun[0], _tokenName);
-
-        tokenERC721.addToken(msg.sender, _sun[0]);
-        MintTokens(msg.sender, _sun[0]);
     }
 
     function () public payable {
@@ -52,16 +46,16 @@ contract Mintable is Destructible {
 
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
-
+            
             tokenERC721.addToken(msg.sender, _tokensId[i]);
-            tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
-            tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
+            // tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
+            // tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
 
             MintTokens(msg.sender, _tokensId[i]);
         }
 
-        require(amount == 0);
-        owner.transfer(this.balance);
+        //require(amount == 0);
+        //owner.transfer(this.balance);
         
     }
 
@@ -82,7 +76,7 @@ contract Mintable is Destructible {
             
             isTrue = initExoplanetsPrice <= amount;
 
-            amount = amount.sub(initExoplanetsPrice);
+            amount != 0 ? amount.sub(initExoplanetsPrice) : 0;
 
             return isTrue;
 
@@ -91,7 +85,7 @@ contract Mintable is Destructible {
 
             isTrue = initSatellitesPrice <= amount;
 
-            amount = amount.sub(initSatellitesPrice);
+            amount != 0 ? amount.sub(initSatellitesPrice) : 0;
             
             return isTrue;
 
@@ -100,7 +94,7 @@ contract Mintable is Destructible {
             
             isTrue = initPlanetsPrice <= amount;
 
-            amount = amount.sub(initPlanetsPrice);
+            amount != 0 ? amount.sub(initPlanetsPrice) : 0;
             
             return isTrue;
 
@@ -109,7 +103,7 @@ contract Mintable is Destructible {
 
             isTrue = initDwarfPlanetsPrice <= amount;
 
-            amount = amount.sub(initDwarfPlanetsPrice);
+            amount != 0 ? amount.sub(initDwarfPlanetsPrice) : 0;
             
             return isTrue;
 
@@ -124,6 +118,7 @@ contract Mintable is Destructible {
         if (tempEmptyStringTest.length == 0) {
             return 0x0;
         }
+
         assembly {
             result := mload(add(source, 32))
         }

@@ -1,10 +1,10 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.18;
 
 import "./Storage.sol";
 import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract StorageGetter is Storage {
-
+    
     /**
     * @dev Gets the total amount of tokens stored by the contract
     * @return uint256 representing the total amount of tokens
@@ -51,12 +51,15 @@ contract StorageGetter is Storage {
         return tokens[_tokenId].tokenApproval;
     }
 
-    function getOwnedTokensIndex(uint _tokenId) external view returns (uint) {
-        return ownedTokensIndex[_tokenId];
-    }
-    
-    function getOwnedTokens(address _from, uint lastTokenIndex) public view returns (uint) {
-        return ownedTokens[_from][lastTokenIndex];
+    /**
+    * @dev Tells whether the msg.sender is approved for the given token ID or not
+    * This function is not private so it can be extended in further implementations like the operatable ERC721
+    * @param _owner address of the owner to query the approval of
+    * @param _tokenId uint256 ID of the token to query the approval of
+    * @return bool whether the msg.sender is approved for the given token ID or not
+    */
+    function isApprovedFor(address _owner, uint256 _tokenId) internal view returns (bool) {
+        return approvedFor(_tokenId) == _owner;
     }
     
     function tokenPriceOf(uint256 _tokenId) public view returns (uint) {

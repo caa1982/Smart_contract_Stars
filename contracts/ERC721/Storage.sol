@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.18;
 
 contract Storage {
 
@@ -20,6 +20,7 @@ contract Storage {
     // Mapping from token ID to index of the owner tokens list
     mapping(uint => uint) public ownedTokensIndex;
 
+    // Mapping to allow access to change Storage
     mapping(address => bool) public accessAllowed;
     
     function Storage() public {
