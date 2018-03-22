@@ -89,7 +89,7 @@ contract('Mintable', accounts => {
   });
 
   it("Should be able to mint one Planet token", async () => {
-    await contractMintable.mintTokens([98827], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: 0});
+    await contractMintable.mintTokens([98827], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
     contractERC721.ownerOf(98827).then(_owner => {
         assert.equal(_owner, account1, "it should have created a planet token");
     })
