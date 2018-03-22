@@ -14,6 +14,10 @@ contract Buyable is Destructible {
     
     event BuyTokens(address exOwner, address newOwner, uint id);
 
+    function () public payable {
+        revert();
+    }
+    
     function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
@@ -23,34 +27,32 @@ contract Buyable is Destructible {
         amount = msg.value;
 
         for ( uint i = 0; i < _tokensId.length; i++ ) {
-            require(isTheCorrectPrice(_tokensId[i]));
+            uint tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
 
+            require(isTheCorrectPrice(tokenPrice));
+
+            amount = amount.sub(tokenPrice);
             address exOwner = tokenERC721.ownerOf(_tokensId[i]);
+            
+            //substract Trading fees is 1%
+            exOwner.transfer(tokenPrice.sub(tokenPrice.div(100)));
+
+            //send trading fee to contract Owner
+            owner.transfer(tokenPrice.div(100));
 
             tokenERC721.clearApproval(exOwner, _tokensId[i]);
             tokenERC721.removeToken(exOwner, _tokensId[i]);
             tokenERC721.addToken(msg.sender, _tokensId[i]);
+
             BuyTokens(exOwner, msg.sender, _tokensId[i]);
         }
 
         require(amount == 0);
-        
-        //substract Trading fees is 1%
-        exOwner.transfer(msg.value.sub((msg.value).div(100)));
-
-        //send trading fee to contract Owner
-        owner.transfer((msg.value).div(100));
 
     }
     
-    function isTheCorrectPrice(uint _tokenId) internal returns(bool) {
-        
-        uint tokenPrice = tokenERC721.tokenPriceOf(_tokenId);
-        bool isTrue = tokenPrice <= amount;
-
-        amount = amount.sub(tokenPrice);
-        
-        return isTrue;
+    function isTheCorrectPrice(uint _tokenPrice) internal view returns(bool) {
+        return _tokenPrice <= amount;
     }
 
 }

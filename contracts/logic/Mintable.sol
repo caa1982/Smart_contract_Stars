@@ -22,10 +22,6 @@ contract Mintable is Buyable {
         tokenERC721 = ERC721Token(_tokenERC721Address);
     }
 
-    function () public payable {
-        revert();
-    }
-
     function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
