@@ -25,7 +25,7 @@ contract Storage {
     
     function Storage() public {
         accessAllowed[msg.sender] = true;
-        accessAllowed[this.address] = true;
+        accessAllowed[this] = true;
     }
 
 }

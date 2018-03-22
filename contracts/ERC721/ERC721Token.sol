@@ -53,12 +53,12 @@ contract ERC721Token is ERC721, StorageModifier {
     }
 
     /**
-    * @dev Internal function to clear current approval and transfer the ownership of a given token ID
+    * @dev function to clear current approval and transfer the ownership of a given token ID
     * @param _from address which you want to send tokens from
     * @param _to address which you want to transfer the token to
     * @param _tokenId uint256 ID of the token to be transferred
     */
-    function clearApprovalAndTransfer(address _from, address _to, uint256 _tokenId) internal {
+    function clearApprovalAndTransfer(address _from, address _to, uint256 _tokenId) hasAccess public {
         require(_to != address(0));
         require(_to != ownerOf(_tokenId));
         require(ownerOf(_tokenId) == _from);
@@ -73,14 +73,14 @@ contract ERC721Token is ERC721, StorageModifier {
     * @dev Internal function to clear current approval of a given token ID
     * @param _tokenId uint256 ID of the token to be transferred
     */
-    function clearApproval(address _owner, uint256 _tokenId) public {
+    function clearApproval(address _owner, uint256 _tokenId) internal {
         require(ownerOf(_tokenId) == _owner);
         tokens[_tokenId].tokenApproval = 0;
         Approval(_owner, 0, _tokenId);
     }
 
     /**
-    * @dev Internal function to add a token ID to the list of a given address
+    * @dev function to add a token ID to the list of a given address
     * @param _to address representing the new owner of the given token ID
     * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
     */
@@ -94,7 +94,7 @@ contract ERC721Token is ERC721, StorageModifier {
     }
 
     /**
-    * @dev Internal function to remove a token ID from the list of a given address
+    * @dev function to remove a token ID from the list of a given address
     * @param _from address representing the previous owner of the given token ID
     * @param _tokenId uint256 ID of the token to be removed from the tokens list of the given address
     */

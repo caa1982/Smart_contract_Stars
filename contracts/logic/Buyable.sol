@@ -40,10 +40,8 @@ contract Buyable is Destructible {
 
             //send trading fee to contract Owner
             owner.transfer(tokenPrice.div(100));
-
-            tokenERC721.clearApproval(exOwner, _tokensId[i]);
-            tokenERC721.removeToken(exOwner, _tokensId[i]);
-            tokenERC721.addToken(msg.sender, _tokensId[i]);
+            
+            tokenERC721.clearApprovalAndTransfer(exOwner, msg.sender, _tokensId[i]);
 
             BuyTokens(exOwner, msg.sender, _tokensId[i]);
         }
