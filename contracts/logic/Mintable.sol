@@ -48,14 +48,14 @@ contract Mintable is Destructible {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
             
             tokenERC721.addToken(msg.sender, _tokensId[i]);
-            // tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
-            // tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
-
+            tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
+            tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
+            
             MintTokens(msg.sender, _tokensId[i]);
         }
 
-        //require(amount == 0);
-        //owner.transfer(this.balance);
+        require(amount == 0);
+        owner.transfer(this.balance);
         
     }
 
@@ -67,7 +67,7 @@ contract Mintable is Destructible {
             
             isTrue = initStarsPrice <= amount;
 
-            amount = amount.sub(initStarsPrice);
+            amount != 0 ? amount = amount.sub(initStarsPrice) : 0;
 
             return isTrue;
 
@@ -76,7 +76,7 @@ contract Mintable is Destructible {
             
             isTrue = initExoplanetsPrice <= amount;
 
-            amount != 0 ? amount.sub(initExoplanetsPrice) : 0;
+            amount != 0 ? amount = amount.sub(initExoplanetsPrice) : 0;
 
             return isTrue;
 
@@ -85,7 +85,7 @@ contract Mintable is Destructible {
 
             isTrue = initSatellitesPrice <= amount;
 
-            amount != 0 ? amount.sub(initSatellitesPrice) : 0;
+            amount != 0 ? amount = amount.sub(initSatellitesPrice) : 0;
             
             return isTrue;
 
@@ -94,7 +94,7 @@ contract Mintable is Destructible {
             
             isTrue = initPlanetsPrice <= amount;
 
-            amount != 0 ? amount.sub(initPlanetsPrice) : 0;
+            amount != 0 ? amount = amount.sub(initPlanetsPrice) : 0;
             
             return isTrue;
 
@@ -103,7 +103,7 @@ contract Mintable is Destructible {
 
             isTrue = initDwarfPlanetsPrice <= amount;
 
-            amount != 0 ? amount.sub(initDwarfPlanetsPrice) : 0;
+            amount != 0 ? amount = amount.sub(initDwarfPlanetsPrice) : 0;
             
             return isTrue;
 

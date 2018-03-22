@@ -18,11 +18,11 @@ module.exports = function(deployer, network, wallet) {
       initPrice: [15000000000000000, 100000000000000000000, 10000000000000000000, 10000000000000000000, 2500000000000000000]
     };
   
-  // deployer.deploy(Mintable, deployDetails.initPrice, ERC721Token.address)
-  // .then(() => 
-  //   ERC721Token.deployed()
-  //   .then( inst => {
-  //     inst.allowAccess(Mintable.address) 
-  //   })
-  // );
+    deployer.deploy(Mintable, deployDetails.initPrice, ERC721Token.address)
+    .then(() => 
+      ERC721Token.deployed()
+      .then( inst => {
+        inst.allowAccess(Mintable.address) 
+      })
+    );
 };
