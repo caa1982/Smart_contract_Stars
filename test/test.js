@@ -102,8 +102,13 @@ contract('Mintable', accounts => {
     })
   });
 
-  it("Should revert when trying to buy the Sun token with the wrong price", async () => {
+  it("Should revert when trying to buy the Sun token with a price too hight", async () => {
     await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 10000000000000000000})
+    .should.be.rejectedWith(EVMrevert)
+  });
+
+  it("Should revert when trying to buy the Sun token with a price too low", async () => {
+    await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 0})
     .should.be.rejectedWith(EVMrevert)
   });
 
