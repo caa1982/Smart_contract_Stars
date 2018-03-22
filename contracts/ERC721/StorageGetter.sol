@@ -9,7 +9,7 @@ contract StorageGetter is Storage {
     * @dev Gets the total amount of tokens stored by the contract
     * @return uint256 representing the total amount of tokens
     */
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() external view returns (uint256) {
         return totalTokens;
     }
 
@@ -27,7 +27,7 @@ contract StorageGetter is Storage {
     * @param _owner address to query the tokens of
     * @return uint256[] representing the list of tokens owned by the passed address
     */
-    function tokensOf(address _owner) public view returns (uint256[]) {
+    function tokensOf(address _owner) external view returns (uint256[]) {
         return ownedTokens[_owner];
     }
 
@@ -51,24 +51,24 @@ contract StorageGetter is Storage {
         return tokens[_tokenId].tokenApproval;
     }
 
-    function ownedTokensIndex(uint _tokenId) external view returns (uint) {
+    function getOwnedTokensIndex(uint _tokenId) external view returns (uint) {
         return ownedTokensIndex[_tokenId];
     }
     
-    function ownedTokens(_from, lastTokenIndex) external view returns (uint) {
+    function getOwnedTokens(address _from, uint lastTokenIndex) public view returns (uint) {
         return ownedTokens[_from][lastTokenIndex];
     }
     
-    function tokenPriceOf(uint256 _tokenId) external view returns (uint) {
+    function tokenPriceOf(uint256 _tokenId) public view returns (uint) {
         return tokens[_tokenId].tokenPrice;
     }
 
-    function tokenNameOf(uint256 _tokenId) external view returns (string) {
+    function tokenNameOf(uint256 _tokenId) public view returns (string) {
         bytes32 name = tokens[_tokenId].tokenName;
         return bytes32ToStr(name);
     }
 
-    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint, string, address) {
+    function tokenDetailsOf(uint256 _tokenId) public view returns (address, uint, string, address) {
         return (
             tokens[_tokenId].tokenOwner, 
             tokens[_tokenId].tokenPrice,

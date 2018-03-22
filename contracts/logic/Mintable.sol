@@ -1,8 +1,11 @@
 pragma solidity ^0.4.19;
 
-import "./ERC721Token.sol";
+import "../ERC721/ERC721Token.sol";
+import "../../node_modules/zeppelin-solidity/contracts/math/SafeMath.sol";
+import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.sol";
 
-contract Mintable is ERC721Token {
+contract Mintable is Destructible {
+    using SafeMath for uint;
     
     uint public initStarsPrice;
     uint public initPlanetsPrice;
@@ -12,25 +15,29 @@ contract Mintable is ERC721Token {
 
     uint public amount;
 
-    function Mintable(uint[] _sun, bytes32 _tokenName, uint[] _initPrice) public {
+    ERC721Token tokenERC721;
+
+    event MintTokens(address, uint);
+
+    function Mintable(uint[] _sun, bytes32 _tokenName, uint[] _initPrice, address _tokenERC721Address) public {
         initStarsPrice = _initPrice[0];
         initPlanetsPrice = _initPrice[1];
         initDwarfPlanetsPrice = _initPrice[2];
         initSatellitesPrice = _initPrice[3];
         initExoplanetsPrice = _initPrice[4];
         
-        tokenStorage.changeTokenPrice(_sun[0], _sun[1]);
-        tokenStorage.changeTokenName(_sun[0], _tokenName);
+        tokenERC721 = ERC721Token(_tokenERC721Address);
 
-        addToken(msg.sender, _sun[0]);
-        Transfer(0x0, msg.sender, _sun[0]);
+        tokenERC721.changeTokenPrice(_sun[0], _sun[1]);
+        tokenERC721.changeTokenName(_sun[0], _tokenName);
+
+        tokenERC721.addToken(msg.sender, _sun[0]);
+        MintTokens(msg.sender, _sun[0]);
     }
 
     function () public payable {
         revert();
     }
-
-    event MintTokens(address, uint);
 
     function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
         require(msg.value > 0);
@@ -46,11 +53,11 @@ contract Mintable is ERC721Token {
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
 
-            addToken(msg.sender, _tokensId[i]);
-            MintTokens(msg.sender, _tokensId[i]);
+            tokenERC721.addToken(msg.sender, _tokensId[i]);
+            tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
+            tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
 
-            tokenStorage.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
-            tokenStorage.changeTokenName(_tokensId[i], _tokensName[i]);
+            MintTokens(msg.sender, _tokensId[i]);
         }
 
         require(amount == 0);
@@ -58,7 +65,7 @@ contract Mintable is ERC721Token {
         
     }
 
-    function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal returns (bool) {
+    function isTheInitialPriceCorrect(uint _tokenId, bytes32 _tokenType) internal returns (bool) {
         bool isTrue;
 
         if (_tokenType == stringToBytes32("star")) {

@@ -20,7 +20,7 @@ contract Storage {
     // Mapping from token ID to index of the owner tokens list
     mapping(uint => uint) public ownedTokensIndex;
 
-    mapping(address => bool) public accessAllowed
+    mapping(address => bool) public accessAllowed;
     
     function Storage() public {
         accessAllowed[msg.sender] = true;

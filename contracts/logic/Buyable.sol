@@ -17,11 +17,11 @@ contract Buyable is Mintable {
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             require(isTheCorrectPrice(_tokensId[i]));
 
-            address exOwner = ownerOf(_tokensId[i]);
+            address exOwner = tokenERC721.ownerOf(_tokensId[i]);
 
-            clearApproval(exOwner, _tokensId[i]);
-            removeToken(exOwner, _tokensId[i]);
-            addToken(msg.sender, _tokensId[i]);
+            tokenERC721.clearApproval(exOwner, _tokensId[i]);
+            tokenERC721.removeToken(exOwner, _tokensId[i]);
+            tokenERC721.addToken(msg.sender, _tokensId[i]);
             BuyTokens(exOwner, msg.sender, _tokensId[i]);
         }
 
@@ -35,12 +35,12 @@ contract Buyable is Mintable {
 
     }
     
-    function isTheCorrectPrice(uint256 _tokenId) internal returns(bool) {
-        bool isTrue;
+    function isTheCorrectPrice(uint _tokenId) internal returns(bool) {
+        
+        uint tokenPrice = tokenERC721.tokenPriceOf(_tokenId);
+        bool isTrue = tokenPrice <= amount;
 
-        isTrue = tokens[_tokenId].tokenPrice <= amount;
-
-        amount = amount.sub(tokens[_tokenId].tokenPrice);
+        amount = amount.sub(tokenPrice);
         
         return isTrue;
     }
