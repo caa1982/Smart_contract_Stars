@@ -29,9 +29,10 @@ contract Buyable is Destructible {
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             uint tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
 
-            require(isTheCorrectPrice(tokenPrice));
+            require(tokenPrice <= amount);
 
-            amount = amount.sub(tokenPrice);
+            amount != 0 ? amount = amount.sub(tokenPrice) : 0;
+            
             address exOwner = tokenERC721.ownerOf(_tokensId[i]);
             
             //substract Trading fees is 1%
@@ -49,10 +50,6 @@ contract Buyable is Destructible {
 
         require(amount == 0);
 
-    }
-    
-    function isTheCorrectPrice(uint _tokenPrice) internal view returns(bool) {
-        return _tokenPrice <= amount;
     }
 
 }
