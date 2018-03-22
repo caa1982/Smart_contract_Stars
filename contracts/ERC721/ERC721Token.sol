@@ -73,7 +73,7 @@ contract ERC721Token is ERC721, StorageModifier {
     * @dev Internal function to clear current approval of a given token ID
     * @param _tokenId uint256 ID of the token to be transferred
     */
-    function clearApproval(address _owner, uint256 _tokenId) hasAccess public {
+    function clearApproval(address _owner, uint256 _tokenId) public {
         require(ownerOf(_tokenId) == _owner);
         tokens[_tokenId].tokenApproval = 0;
         Approval(_owner, 0, _tokenId);
