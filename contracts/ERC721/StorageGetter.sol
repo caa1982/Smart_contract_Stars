@@ -66,12 +66,12 @@ contract StorageGetter is Storage {
         return tokens[_tokenId].tokenPrice;
     }
 
-    function tokenNameOf(uint256 _tokenId) public view returns (string) {
+    function tokenNameOf(uint256 _tokenId) external view returns (string) {
         bytes32 name = tokens[_tokenId].tokenName;
         return bytes32ToStr(name);
     }
 
-    function tokenDetailsOf(uint256 _tokenId) public view returns (address, uint, string, address) {
+    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint, string, address) {
         return (
             tokens[_tokenId].tokenOwner, 
             tokens[_tokenId].tokenPrice,
