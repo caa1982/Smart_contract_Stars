@@ -9,8 +9,6 @@ contract Buyable is Destructible {
     using SafeMath for uint256;
 
     ERC721Token tokenERC721;
-
-    uint public amount;
     
     event BuyTokens(address exOwner, address newOwner, uint id);
 
@@ -24,14 +22,16 @@ contract Buyable is Destructible {
         require(_tokensId.length <= 5);
         require(_tokensId.length == _newTokensPrice.length);
 
-        amount = msg.value;
+        uint amount = msg.value;
 
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             uint tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
 
             require(tokenPrice <= amount);
 
-            amount != 0 ? amount = amount.sub(tokenPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(tokenPrice);
+            }
             
             address exOwner = tokenERC721.ownerOf(_tokensId[i]);
             

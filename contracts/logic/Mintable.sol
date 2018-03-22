@@ -10,6 +10,8 @@ contract Mintable is Buyable {
     uint public initSatellitesPrice;
     uint public initExoplanetsPrice;
 
+    uint amount;
+    
     event MintTokens(address from, uint id);
     
     function Mintable(uint[] _initPrice, address _tokenERC721Address) public {
@@ -56,7 +58,9 @@ contract Mintable is Buyable {
             
             isTrue = initStarsPrice <= amount;
 
-            amount != 0 ? amount = amount.sub(initStarsPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(initStarsPrice);
+            }
 
             return isTrue;
 
@@ -65,7 +69,9 @@ contract Mintable is Buyable {
             
             isTrue = initExoplanetsPrice <= amount;
 
-            amount != 0 ? amount = amount.sub(initExoplanetsPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(initExoplanetsPrice);
+            }
 
             return isTrue;
 
@@ -74,7 +80,9 @@ contract Mintable is Buyable {
 
             isTrue = initSatellitesPrice <= amount;
 
-            amount != 0 ? amount = amount.sub(initSatellitesPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(initSatellitesPrice);
+            }
             
             return isTrue;
 
@@ -83,7 +91,9 @@ contract Mintable is Buyable {
             
             isTrue = initPlanetsPrice <= amount;
 
-            amount != 0 ? amount = amount.sub(initPlanetsPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(initPlanetsPrice);
+            }
             
             return isTrue;
 
@@ -92,7 +102,9 @@ contract Mintable is Buyable {
 
             isTrue = initDwarfPlanetsPrice <= amount;
 
-            amount != 0 ? amount = amount.sub(initDwarfPlanetsPrice) : 0;
+            if(amount != 0) {
+                amount = amount.sub(initDwarfPlanetsPrice);
+            }
             
             return isTrue;
 
