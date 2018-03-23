@@ -58,7 +58,7 @@ contract ERC721Token is ERC721, StorageModifier {
     * @param _to address which you want to transfer the token to
     * @param _tokenId uint256 ID of the token to be transferred
     */
-    function clearApprovalAndTransfer(address _from, address _to, uint256 _tokenId) hasAccess public {
+    function clearApprovalAndTransfer(address _from, address _to, uint256 _tokenId) onlyAllowedAddresses public {
         require(_to != address(0));
         require(_to != ownerOf(_tokenId));
         require(ownerOf(_tokenId) == _from);
@@ -84,7 +84,7 @@ contract ERC721Token is ERC721, StorageModifier {
     * @param _to address representing the new owner of the given token ID
     * @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
     */
-    function addToken(address _to, uint256 _tokenId) hasAccess public {
+    function addToken(address _to, uint256 _tokenId) onlyAllowedAddresses public {
         require(tokens[_tokenId].tokenOwner == address(0));
         tokens[_tokenId].tokenOwner = _to;
         uint256 length = balanceOf(_to);
@@ -98,7 +98,7 @@ contract ERC721Token is ERC721, StorageModifier {
     * @param _from address representing the previous owner of the given token ID
     * @param _tokenId uint256 ID of the token to be removed from the tokens list of the given address
     */
-    function removeToken(address _from, uint256 _tokenId) hasAccess public {
+    function removeToken(address _from, uint256 _tokenId) onlyAllowedAddresses public {
         require(ownerOf(_tokenId) == _from);
 
         uint256 tokenIndex = ownedTokensIndex[_tokenId];

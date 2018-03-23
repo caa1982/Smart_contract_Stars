@@ -4,28 +4,28 @@ import "./StorageGetter.sol";
 
 contract StorageModifier is StorageGetter {
     
-    modifier hasAccess() {
+    modifier onlyAllowedAddresses() {
         require(accessAllowed[msg.sender] == true);
         _;
     }
 
-    function allowAccess(address _address) hasAccess external {
+    function allowAccess(address _address) onlyAllowedAddresses external {
         accessAllowed[_address] = true;
     }
 
-    function denyAccess(address _address) hasAccess external {
+    function denyAccess(address _address) onlyAllowedAddresses external {
         accessAllowed[_address] = false;
     }
     
-    function changeTokenOwner(uint _tokenId, address _to) hasAccess external {
+    function changeTokenOwner(uint _tokenId, address _to) onlyAllowedAddresses external {
         tokens[_tokenId].tokenOwner = _to;
     }
 
-    function changeTokenPrice(uint _tokenId, uint _tokenPrice) hasAccess external {
+    function changeTokenPrice(uint _tokenId, uint _tokenPrice) onlyAllowedAddresses external {
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
-    function changeTokenName(uint _tokenId, bytes32 _tokenName) hasAccess external {
+    function changeTokenName(uint _tokenId, bytes32 _tokenName) onlyAllowedAddresses external {
         tokens[_tokenId].tokenName = _tokenName;
     }
 
