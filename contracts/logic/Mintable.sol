@@ -10,7 +10,7 @@ contract Mintable is Buyable {
     uint public initSatellitesPrice;
     uint public initExoplanetsPrice;
 
-    uint amount;
+    uint private amount;
     
     event MintTokens(address from, uint id);
     
