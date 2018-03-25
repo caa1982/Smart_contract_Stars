@@ -4,17 +4,17 @@ import "./Buyable.sol";
 
 contract Mintable is Buyable {
     
-    uint public initStarsPrice;
-    uint public initPlanetsPrice;
-    uint public initDwarfPlanetsPrice;
-    uint public initSatellitesPrice;
-    uint public initExoplanetsPrice;
+    uint256 public initStarsPrice;
+    uint256 public initPlanetsPrice;
+    uint256 public initDwarfPlanetsPrice;
+    uint256 public initSatellitesPrice;
+    uint256 public initExoplanetsPrice;
 
-    uint private amount;
+    uint256 private amount;
     
-    event MintTokens(address from, uint id);
+    event MintTokens(address from, uint256 id);
     
-    function Mintable(uint[] _initPrice, address _tokenERC721Address) public {
+    function Mintable(uint256[] _initPrice, address _tokenERC721Address) public {
         initStarsPrice = _initPrice[0];
         initPlanetsPrice = _initPrice[1];
         initDwarfPlanetsPrice = _initPrice[2];
@@ -24,7 +24,7 @@ contract Mintable is Buyable {
         tokenERC721 = ERC721Token(_tokenERC721Address);
     }
 
-    function mintTokens(uint[] _tokensId, bytes32[] _tokensType, uint[] _tokensPrice, bytes32[] _tokensName) payable external {
+    function mintTokens(uint256[] _tokensId, bytes32[] _tokensType, uint256[] _tokensPrice, bytes32[] _tokensName) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
         require(_tokensId.length > 0);
@@ -35,7 +35,7 @@ contract Mintable is Buyable {
         
         amount = msg.value;
 
-        for ( uint i = 0; i < _tokensId.length; i++ ) {
+        for ( uint256 i = 0; i < _tokensId.length; i++ ) {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
             
             tokenERC721.createToken(_tokensId[i], _tokensType[i], _tokensName[i], _tokensPrice[i]);
@@ -49,7 +49,7 @@ contract Mintable is Buyable {
         
     }
 
-    function isTheInitialPriceCorrect(uint _tokenId, bytes32 _tokenType) internal returns (bool) {
+    function isTheInitialPriceCorrect(uint256 _tokenId, bytes32 _tokenType) internal returns (bool) {
         bool isTrue;
 
         if (_tokenType == stringToBytes32("star")) {

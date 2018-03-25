@@ -62,7 +62,7 @@ contract StorageGetter is Storage {
         return approvedFor(_tokenId) == _owner;
     }
     
-    function tokenPriceOf(uint256 _tokenId) public view returns (uint) {
+    function tokenPriceOf(uint256 _tokenId) public view returns (uint256) {
         return tokens[_tokenId].tokenPrice;
     }
 
@@ -71,7 +71,7 @@ contract StorageGetter is Storage {
         return bytes32ToStr(name);
     }
 
-    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint, string, string, address) {
+    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint256, string, string, address) {
         return (
             tokens[_tokenId].tokenOwner, 
             tokens[_tokenId].tokenPrice,

@@ -6,28 +6,28 @@ import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.so
 
 
 contract Buyable is Destructible {
-    using SafeMath for uint256;
+    using SafeMath for uint256256;
 
     ERC721Token tokenERC721;
     
-    event BuyTokens(address exOwner, address newOwner, uint id, uint Price);
+    event BuyTokens(address exOwner, address newOwner, uint256 id, uint256 Price);
 
     function () public payable {
         revert();
     }
     
-    function buyTokens(uint[] _tokensId, uint[] _newTokensPrice) payable external {
+    function buyTokens(uint256[] _tokensId, uint256[] _newTokensPrice) payable external {
         require(msg.value > 0);
         require(msg.sender != address(0));
         require(_tokensId.length <= 5);
         require(_tokensId.length == _newTokensPrice.length);
 
-        uint amount = msg.value;
+        uint256 amount = msg.value;
 
-        for ( uint i = 0; i < _tokensId.length; i++ ) {
+        for ( uint256 i = 0; i < _tokensId.length; i++ ) {
             require(tokenERC721.ownerOf(_tokensId[i] != msg.sender));
             
-            uint tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
+            uint256 tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
 
             require(tokenPrice <= amount);
 

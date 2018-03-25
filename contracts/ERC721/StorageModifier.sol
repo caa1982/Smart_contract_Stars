@@ -17,20 +17,20 @@ contract StorageModifier is StorageGetter {
         accessAllowed[_address] = false;
     }
     
-    function changeTokenOwner(uint _tokenId, address _to) onlyAllowedAddresses external {
+    function changeTokenOwner(uint256 _tokenId, address _to) onlyAllowedAddresses external {
         tokens[_tokenId].tokenOwner = _to;
     }
 
-    function changeTokenPrice(uint _tokenId, uint _tokenPrice) onlyAllowedAddresses external {
+    function changeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) onlyAllowedAddresses external {
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
-    function changeTokenName(uint _tokenId, bytes32 _tokenName) onlyAllowedAddresses external {
+    function changeTokenName(uint256 _tokenId, bytes32 _tokenName) onlyAllowedAddresses external {
         require(tokens[_tokenId].tokenType == 0x73746172);
         tokens[_tokenId].tokenName = _tokenName;
     }
     
-    function createToken(uint _tokenId, bytes32 _tokenType, bytes32 _tokenName, uint _tokenPrice) onlyAllowedAddresses external {
+    function createToken(uint256 _tokenId, bytes32 _tokenType, bytes32 _tokenName, uint256 _tokenPrice) onlyAllowedAddresses external {
         require(tokens[_tokenId].tokenType == 0);
         tokens[_tokenId].tokenType = _tokenType;
         tokens[_tokenId].tokenName = _tokenName;
