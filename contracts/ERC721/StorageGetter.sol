@@ -71,10 +71,11 @@ contract StorageGetter is Storage {
         return bytes32ToStr(name);
     }
 
-    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint, string, address) {
+    function tokenDetailsOf(uint256 _tokenId) external view returns (address, uint, string, string, address) {
         return (
             tokens[_tokenId].tokenOwner, 
             tokens[_tokenId].tokenPrice,
+            bytes32ToStr(tokens[_tokenId].tokenType),
             bytes32ToStr(tokens[_tokenId].tokenName),
             tokens[_tokenId].tokenApproval
             );

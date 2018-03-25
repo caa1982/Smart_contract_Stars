@@ -38,10 +38,9 @@ contract Mintable is Buyable {
         for ( uint i = 0; i < _tokensId.length; i++ ) {
             require(isTheInitialPriceCorrect(_tokensId[i],  _tokensType[i])); 
             
+            tokenERC721.createToken(_tokensId[i], _tokensType[i], _tokensName[i], _tokensPrice[i]);
             tokenERC721.addToken(msg.sender, _tokensId[i]);
-            tokenERC721.changeTokenPrice(_tokensId[i], _tokensPrice[i]);
-            tokenERC721.changeTokenName(_tokensId[i], _tokensName[i]);
-            
+
             MintTokens(msg.sender, _tokensId[i]);
         }
 
@@ -76,7 +75,7 @@ contract Mintable is Buyable {
             return isTrue;
 
         } else if (_tokenType == stringToBytes32("satellite")) {
-            require(_tokenId >= 98846 && _tokenId <= 98852);
+            require(_tokenId >= 98827 && _tokenId <= 98845);
 
             isTrue = initSatellitesPrice <= amount;
 
@@ -87,7 +86,7 @@ contract Mintable is Buyable {
             return isTrue;
 
         } else if (_tokenType == stringToBytes32("planet")) {
-            require(_tokenId >= 98827 && _tokenId <= 98845); 
+            require(_tokenId >= 98846 && _tokenId <= 98852); 
             
             isTrue = initPlanetsPrice <= amount;
 

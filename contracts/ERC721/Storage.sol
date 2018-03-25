@@ -9,6 +9,7 @@ contract Storage {
         address tokenOwner;
         uint tokenPrice;
         bytes32 tokenName;
+        bytes32 tokenType;
         address tokenApproval;
     }
     //mapping from tokenID to token details

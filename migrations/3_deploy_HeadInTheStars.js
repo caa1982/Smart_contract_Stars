@@ -15,7 +15,7 @@ module.exports = function(deployer, network, wallet) {
     }
   
     const deployDetails = {
-      initPrice: [15000000000000000, 100000000000000000000, 10000000000000000000, 10000000000000000000, 2500000000000000000]
+      initPrice: [150000000000000000, 10000000000000000000, 3000000000000000000, 5000000000000000000, 1000000000000000000]
     };
   
     deployer.deploy(Mintable, deployDetails.initPrice, ERC721Token.address)

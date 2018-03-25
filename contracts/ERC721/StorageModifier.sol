@@ -26,7 +26,15 @@ contract StorageModifier is StorageGetter {
     }
 
     function changeTokenName(uint _tokenId, bytes32 _tokenName) onlyAllowedAddresses external {
+        require(tokens[_tokenId].tokenType == 0x73746172);
         tokens[_tokenId].tokenName = _tokenName;
+    }
+    
+    function createToken(uint _tokenId, bytes32 _tokenType, bytes32 _tokenName, uint _tokenPrice) onlyAllowedAddresses external {
+        require(tokens[_tokenId].tokenType == 0);
+        tokens[_tokenId].tokenType = _tokenType;
+        tokens[_tokenId].tokenName = _tokenName;
+        tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
 }
