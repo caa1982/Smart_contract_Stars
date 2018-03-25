@@ -26,6 +26,7 @@ contract Buyable is Destructible {
 
         for ( uint256 i = 0; i < _tokensId.length; i++ ) {
             require(tokenERC721.ownerOf(_tokensId[i] != msg.sender));
+            require(tokenERC721.tokenPriceOf(_tokensId[i]) != 0);
             
             uint256 tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
 

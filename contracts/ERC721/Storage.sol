@@ -8,6 +8,7 @@ contract Storage {
     struct Token {
         address tokenOwner;
         uint256 tokenPrice;
+        uint256 lastPrice;
         bytes32 tokenName;
         bytes32 tokenType;
         address tokenApproval;

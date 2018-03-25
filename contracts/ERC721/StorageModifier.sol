@@ -22,6 +22,7 @@ contract StorageModifier is StorageGetter {
     }
 
     function changeTokenPrice(uint256 _tokenId, uint256 _tokenPrice) onlyAllowedAddresses external {
+        tokens[_tokenId].lastPrice = tokens[_tokenId].tokenPrice;
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
@@ -34,6 +35,7 @@ contract StorageModifier is StorageGetter {
         require(tokens[_tokenId].tokenType == 0);
         tokens[_tokenId].tokenType = _tokenType;
         tokens[_tokenId].tokenName = _tokenName;
+        tokens[_tokenId].lastPrice = tokens[_tokenId].tokenPrice;
         tokens[_tokenId].tokenPrice = _tokenPrice;
     }
 
