@@ -114,7 +114,7 @@ contract('Mintable', accounts => {
 
   it("Should be able to mint one Planet and another account should be able to buy it", async () => {
     await contractMintable.mintTokens([98846], ["planet"], [2000000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
-    await contractMintable.buyTokens([98846], [2000000000000000000], {from: account2, value: 2000000000000000000});
+    await contractMintable.buyTokens([98846], [3000000000000000000], {from: account2, value: 2000000000000000000});
     contractERC721.ownerOf(98846).then(_owner => {
         assert.equal(_owner, account2, "it should have change the owner token");
     })
@@ -122,14 +122,14 @@ contract('Mintable', accounts => {
 
   it("Should be able to mint one Planet and another account should not be able to buy it with the wrong price", async () => {
     await contractMintable.mintTokens([98846], ["planet"], [2000000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
-    contractMintable.buyTokens([98846], [2000000000000000000], {from: account2, value: 200000000000000000})
+    contractMintable.buyTokens([98846], [3000000000000000000], {from: account2, value: 200000000000000000})
     .should.be.rejectedWith(EVMrevert)
   });
 
   it("Should be able to mint one Planet and same account should not be able to buy it", async () => {
     await contractMintable.mintTokens([98846], ["planet"], [2000000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
-    contractMintable.buyTokens([98846], [2000000000000000000], {from: account1, value: 2000000000000000000})
+    contractMintable.buyTokens([98846], [3000000000000000000], {from: account1, value: 2000000000000000000})
     .should.be.rejectedWith(EVMrevert)
   });
-
+  
 });
