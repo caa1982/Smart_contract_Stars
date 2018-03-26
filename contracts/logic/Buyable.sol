@@ -9,7 +9,7 @@ contract Buyable is Destructible {
     using SafeMath for uint256;
 
     ERC721Token tokenERC721;
-    
+
     event BuyTokens(address exOwner, address newOwner, uint256 id, uint256 Price);
 
     function () public payable {

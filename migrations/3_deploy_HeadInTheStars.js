@@ -21,9 +21,10 @@ module.exports = function(deployer, network, wallet) {
     deployer.deploy(Mintable, deployDetails.initPrice, ERC721Token.address)
     .then(() => 
       ERC721Token.deployed()
-      .then( inst => {
-        inst.allowAccess(Mintable.address);
-        //inst.mintTokens([1], ["star"], [1000000000000000000], ["Sun"], {from: wallet[0], value: deployDetails.initPrice[0]})
+      .then( async inst => {
+        await inst.allowAccess(Mintable.address);
+        Mintable.deployed()
+        .then(instance => instance.mintTokens([98815], ["star"], [1], ["Sun"], {from: wallet[0], value: deployDetails.initPrice[0]}) )
       })
     );
 };
