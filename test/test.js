@@ -32,85 +32,85 @@ contract('Mintable', accounts => {
 
   })
 
-  // it("Should be able to access the contractERC721", () =>
-  //   contractERC721.accessAllowed(contractMintable.address).then(bool => {
-  //     assert.equal(bool, true, "contractMintable has no access");
-  //   })
-  // );
+  it("Should be able to access the contractERC721", () =>
+    contractERC721.accessAllowed(contractMintable.address).then(bool => {
+      assert.equal(bool, true, "contractMintable has no access");
+    })
+  );
 
-  // it("Should be able to access the contractERC721", () =>
-  //   contractERC721.accessAllowed(owner).then(bool => {
-  //     assert.equal(bool, true, "owner has no access");
-  //   })
-  // );
+  it("Should be able to access the contractERC721", () =>
+    contractERC721.accessAllowed(owner).then(bool => {
+      assert.equal(bool, true, "owner has no access");
+    })
+  );
 
-  // it("Should not be able to access directly the contractERC721", () =>
-  //   contractERC721.accessAllowed(account1).then(bool => {
-  //     assert.equal(bool, false, "owner has access");
-  //   })
-  // );
+  it("Should not be able to access directly the contractERC721", () =>
+    contractERC721.accessAllowed(account1).then(bool => {
+      assert.equal(bool, false, "owner has access");
+    })
+  );
 
-  // it("Should be the owner of the contract", () =>
-  //   contractMintable.owner().then(_owner => {
-  //     assert.equal(_owner, owner, "owner is not the owner of contractMintable");
-  //   })
-  // );
+  it("Should be the owner of the contract", () =>
+    contractMintable.owner().then(_owner => {
+      assert.equal(_owner, owner, "owner is not the owner of contractMintable");
+    })
+  );
 
-  // it("Should have the correct price for the sun", () =>
-  //   contractERC721.tokenPriceOf(1).then(price => {
-  //     assert.equal(price, 1000000000000000000, "the Sun Price is incorrect");
-  //   })
-  // );
+  it("Should have the correct price for the sun", () =>
+    contractERC721.tokenPriceOf(1).then(price => {
+      assert.equal(price, 1000000000000000000, "the Sun Price is incorrect");
+    })
+  );
 
-  // it("Should have the correct amount of tokens", () =>
-  //   contractERC721.totalSupply().then(amount => {
-  //     assert.equal(amount, 1, "the amount of tokens should be 1");
-  //   })
-  // );
+  it("Should have the correct amount of tokens", () =>
+    contractERC721.totalSupply().then(amount => {
+      assert.equal(amount, 1, "the amount of tokens should be 1");
+    })
+  );
 
-  // it("Should revert when minting a Planet token with a bad id 7", async () => {
-  //   await contractMintable.mintTokens([7], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]})
-  //   .should.be.rejectedWith(EVMrevert)
-  // });
+  it("Should revert when minting a Planet token with a bad id 7", async () => {
+    await contractMintable.mintTokens([7], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]})
+    .should.be.rejectedWith(EVMrevert)
+  });
 
-  // it("Should revert when minting a Planet token with the wrong initial price", async () => {
-  //   await contractMintable.mintTokens([98827], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[0]})
-  //   .should.be.rejectedWith(EVMopcode)
-  // });
+  it("Should revert when minting a Planet token with the wrong initial price", async () => {
+    await contractMintable.mintTokens([98827], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[0]})
+    .should.be.rejectedWith(EVMrevert)
+  });
   
-  // it("Should be able to mint tow stars token", async () => {
-  //   await contractMintable.mintTokens([2, 3], ["star", "star"], [2500000000000000000, 2500000000000000000], ["HD1", "HD2"], { from: account1, value: deployDetails.initPrice[0] * 2 });
-  //   contractERC721.ownerOf(2).then(_owner => {
-  //     assert.equal(_owner, account1, "it should have created a star token");
-  //   })
-  //   contractERC721.ownerOf(3).then(_owner => {
-  //     assert.equal(_owner, account1, "it should have created a star token");
-  //   })
-  // });
+  it("Should be able to mint tow stars token", async () => {
+    await contractMintable.mintTokens([2, 3], ["star", "star"], [2500000000000000000, 2500000000000000000], ["HD1", "HD2"], { from: account1, value: deployDetails.initPrice[0] * 2 });
+    contractERC721.ownerOf(2).then(_owner => {
+      assert.equal(_owner, account1, "it should have created a star token");
+    })
+    contractERC721.ownerOf(3).then(_owner => {
+      assert.equal(_owner, account1, "it should have created a star token");
+    })
+  });
 
-  // it("Should be able to mint one Planet token", async () => {
-  //   await contractMintable.mintTokens([98827], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
-  //   contractERC721.ownerOf(98827).then(_owner => {
-  //       assert.equal(_owner, account1, "it should have created a planet token");
-  //   })
-  // });
+  it("Should be able to mint one Planet token", async () => {
+    await contractMintable.mintTokens([98846], ["planet"], [2500000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
+    contractERC721.ownerOf(98846).then(_owner => {
+        assert.equal(_owner, account1, "it should have created a planet token");
+    })
+  });
 
-  // it("Should be able to buy the Sun token", async () => {
-  //   await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 1000000000000000000});
-  //   contractERC721.ownerOf(1).then(_owner => {
-  //       assert.equal(_owner, account1, "it should have been able to buy the star");
-  //   })
-  // });
+  it("Should be able to buy the Sun token", async () => {
+    await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 1000000000000000000});
+    contractERC721.ownerOf(1).then(_owner => {
+        assert.equal(_owner, account1, "it should have been able to buy the star");
+    })
+  });
 
-  // it("Should revert when trying to buy the Sun token with a price too hight", async () => {
-  //   await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 10000000000000000000})
-  //   .should.be.rejectedWith(EVMrevert)
-  // });
+  it("Should revert when trying to buy the Sun token with a price too hight", async () => {
+    await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 10000000000000000000})
+    .should.be.rejectedWith(EVMrevert)
+  });
 
-  // it("Should revert when trying to buy the Sun token with a price too low", async () => {
-  //   await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 0})
-  //   .should.be.rejectedWith(EVMrevert)
-  // });
+  it("Should revert when trying to buy the Sun token with a price too low", async () => {
+    await contractMintable.buyTokens([1], [2000000000000000000], {from: account1, value: 0})
+    .should.be.rejectedWith(EVMrevert)
+  });
 
   it("Should be able to mint one Planet and another account should be able to buy it", async () => {
     await contractMintable.mintTokens([98846], ["planet"], [1000000000000000000], ["Mars"], {from: account1, value: deployDetails.initPrice[1]});
