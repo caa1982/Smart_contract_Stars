@@ -6,7 +6,7 @@ import "../../node_modules/zeppelin-solidity/contracts/lifecycle/Destructible.so
 
 
 contract Buyable is Destructible {
-    using SafeMath for uint256256;
+    using SafeMath for uint256;
 
     ERC721Token tokenERC721;
     
@@ -22,21 +22,19 @@ contract Buyable is Destructible {
         require(_tokensId.length <= 5);
         require(_tokensId.length == _newTokensPrice.length);
 
-        uint256 amount = msg.value;
+        uint256 buyAmount = msg.value;
 
         for ( uint256 i = 0; i < _tokensId.length; i++ ) {
-            require(tokenERC721.ownerOf(_tokensId[i] != msg.sender));
-            require(tokenERC721.tokenPriceOf(_tokensId[i]) != 0);
-            
             uint256 tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
-
-            require(tokenPrice <= amount);
-
-            if(amount != 0) {
-                amount = amount.sub(tokenPrice);
-            }
-            
             address exOwner = tokenERC721.ownerOf(_tokensId[i]);
+            
+            require(exOwner != msg.sender);
+            require(tokenPrice != 0);
+            require(tokenPrice <= buyAmount);
+
+            if(buyAmount != 0) {
+                buyAmount = buyAmount.sub(tokenPrice);
+            }
             
             //substract Trading fees is 1%
             exOwner.transfer(tokenPrice.sub(tokenPrice.div(100)));
@@ -44,13 +42,13 @@ contract Buyable is Destructible {
             //send trading fee to contract Owner
             owner.transfer(tokenPrice.div(100));
             
-            tokenERC721.changeTokenPrice(_tokensId[i], _newTokensPrice);
             tokenERC721.clearApprovalAndTransfer(exOwner, msg.sender, _tokensId[i]);
+            tokenERC721.changeTokenPrice(_tokensId[i], _newTokensPrice[i]);
 
             BuyTokens(exOwner, msg.sender, _tokensId[i], tokenPrice);
         }
 
-        require(amount == 0);
+        require(buyAmount == 0);
 
     }
 
