@@ -25,17 +25,19 @@ contract Buyable is Destructible {
         uint256 buyAmount = msg.value;
 
         for ( uint256 i = 0; i < _tokensId.length; i++ ) {
+            require(buyAmount != 0);
+            
             uint256 tokenPrice = tokenERC721.tokenPriceOf(_tokensId[i]);
             address exOwner = tokenERC721.ownerOf(_tokensId[i]);
             
             require(exOwner != msg.sender);
             require(tokenPrice != 0);
             require(tokenPrice <= buyAmount);
-
-            if(buyAmount != 0) {
-                buyAmount = buyAmount.sub(tokenPrice);
-            }
             
+            tokenPrice = tokenPrice.mul(1000000000000000000);
+
+            buyAmount = buyAmount.sub(tokenPrice);
+
             //substract Trading fees is 1%
             exOwner.transfer(tokenPrice.sub(tokenPrice.div(100)));
 
@@ -47,8 +49,6 @@ contract Buyable is Destructible {
 
             BuyTokens(exOwner, msg.sender, _tokensId[i], tokenPrice);
         }
-
-        require(buyAmount == 0);
 
     }
 
